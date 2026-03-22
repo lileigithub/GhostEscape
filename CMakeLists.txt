@@ -49,7 +49,9 @@ setup_project_dependencies()
 # ============================================
 
 set(SOURCES
-    src/main.cpp
+    src/core/main.cpp
+    src/core/Game.cpp
+    src/SceneMain.cpp
 )
 
 # Windows平台添加资源文件
