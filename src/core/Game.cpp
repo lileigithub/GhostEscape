@@ -3,6 +3,7 @@
 
 void Game::init()
 {
+    screen_size_ = {1280, 720};
     // SDL初始化
     if (!SDL_Init(SDL_INIT_AUDIO | SDL_INIT_VIDEO))
     {
@@ -30,7 +31,6 @@ void Game::init()
         return;
     }
 
-    screen_size_ = {800, 600};
     SDL_CreateWindowAndRenderer("GhostEscape", static_cast<int>(screen_size_.x),
                                 static_cast<int>(screen_size_.y), SDL_WINDOW_RESIZABLE, &window_, &renderer_);
     if (!window_ || !renderer_)
@@ -74,7 +74,6 @@ void Game::run()
         render();
 
         auto diff = SDL_GetTicksNS() - startTimeNS;
-
         // 控制帧率
         if (diff < frame_time_)
         {
@@ -116,4 +115,24 @@ void Game::render()
     SDL_RenderClear(renderer_);
     current_scene_->render();
     SDL_RenderPresent(renderer_);
+}
+
+void Game::drawGrid(const glm::vec2 left_top_pos, const glm::vec2 right_bottom_pos, glm::vec2 cell_size, SDL_FColor color)
+{
+    SDL_SetRenderDrawColorFloat(renderer_, color.r, color.g, color.b, color.a);
+    for (float x = left_top_pos.x; x <= right_bottom_pos.x; x += cell_size.x)
+    {
+        if (x >= 0 && x <= screen_size_.x) // 只画屏幕内的线
+        {
+            SDL_RenderLine(renderer_, x, 0, x, (screen_size_.y < right_bottom_pos.y ? screen_size_.y : right_bottom_pos.y));
+        }
+    }
+    for (float y = left_top_pos.y; y <= right_bottom_pos.y; y += cell_size.y)
+    {
+        if (y >= 0 && y <= screen_size_.y)
+        {
+            SDL_RenderLine(renderer_, 0, y, (screen_size_.x < right_bottom_pos.x ? screen_size_.x : right_bottom_pos.x), y);
+        }
+    }
+    SDL_SetRenderDrawColorFloat(renderer_, 0, 0, 0, 1.0f);
 }

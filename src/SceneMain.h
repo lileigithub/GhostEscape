@@ -4,13 +4,18 @@
 
 class SceneMain : public Scene
 {
+private:
+    glm::vec2 word_size_ = glm::vec2(0);
+
 public:
     SceneMain() = default;
     ~SceneMain() = default;
 
-    void init() override;
-    void handleEvents(SDL_Event &event) override;
-    void update(float dt) override;
-    void render() override;
-    void clean() override;
+    virtual void init() override;
+    virtual void handleEvents(SDL_Event &event) override;
+    virtual void update(float dt) override;
+    virtual void render() override;
+    virtual void clean() override;
+
+    void drawBackground();
 };

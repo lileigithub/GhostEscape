@@ -7,16 +7,10 @@
 class Scene : public Object
 {
 protected:
-    glm::vec2 camera_position_ = glm::vec2();
+    glm::vec2 camera_pos_ = glm::vec2(0);
     std::vector<Object *> objects_;
 
 public:
     Scene() = default;
     ~Scene() = default;
-
-    void init() override {};
-    void handleEvents(SDL_Event &) override {};
-    void update(float) override {};
-    void render() override {};
-    void clean() override {};
 };

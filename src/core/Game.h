@@ -46,4 +46,11 @@ public:
     void handleEvents();
     void update(float dt);
     void render();
+
+    glm::vec2 getSceneSize() const { return screen_size_; }
+    SDL_Renderer *getRenderer() const { return renderer_; }
+
+    void drawGrid(glm::vec2 left_top, glm::vec2 right_bottom, glm::vec2 cell_size, SDL_FColor color);
+
+    bool isVisible(const SDL_FRect& rect);
 };
