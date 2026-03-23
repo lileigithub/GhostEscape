@@ -18,7 +18,7 @@ private:
     bool is_running_ = true;
     Uint64 FPS_ = 60;
     Uint64 frame_time_ = 0; // 每帧的时间间隔, 单位为纳秒
-    float dt_ = 0;         // 每帧的时间间隔, 单位为秒
+    float dt_ = 0;          // 每帧的时间间隔, 单位为秒
 
     Game() {};
 
@@ -47,10 +47,10 @@ public:
     void update(float dt);
     void render();
 
+    Scene *getCurrentScene() const { return current_scene_; }
     glm::vec2 getSceneSize() const { return screen_size_; }
     SDL_Renderer *getRenderer() const { return renderer_; }
 
     void drawGrid(glm::vec2 left_top, glm::vec2 right_bottom, glm::vec2 cell_size, SDL_FColor color);
-
-    bool isVisible(const SDL_FRect& rect);
+    void drawRect(SDL_FRect rect, SDL_FColor color);
 };

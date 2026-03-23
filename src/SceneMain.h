@@ -2,10 +2,12 @@
 
 #include "core/Scene.h"
 
+class Player;
+
 class SceneMain : public Scene
 {
 private:
-    glm::vec2 word_size_ = glm::vec2(0);
+    Player *player_ = nullptr;
 
 public:
     SceneMain() = default;

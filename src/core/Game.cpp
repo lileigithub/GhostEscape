@@ -124,15 +124,24 @@ void Game::drawGrid(const glm::vec2 left_top_pos, const glm::vec2 right_bottom_p
     {
         if (x >= 0 && x <= screen_size_.x) // 只画屏幕内的线
         {
-            SDL_RenderLine(renderer_, x, 0, x, (screen_size_.y < right_bottom_pos.y ? screen_size_.y : right_bottom_pos.y));
+            SDL_RenderLine(renderer_, x, (left_top_pos.y < 0 ? 0 : left_top_pos.y),
+                           x, (screen_size_.y < right_bottom_pos.y ? screen_size_.y : right_bottom_pos.y));
         }
     }
     for (float y = left_top_pos.y; y <= right_bottom_pos.y; y += cell_size.y)
     {
         if (y >= 0 && y <= screen_size_.y)
         {
-            SDL_RenderLine(renderer_, 0, y, (screen_size_.x < right_bottom_pos.x ? screen_size_.x : right_bottom_pos.x), y);
+            SDL_RenderLine(renderer_, (right_bottom_pos.x < 0 ? 0 : left_top_pos.x),
+                           y, (screen_size_.x < right_bottom_pos.x ? screen_size_.x : right_bottom_pos.x), y);
         }
     }
+    SDL_SetRenderDrawColorFloat(renderer_, 0, 0, 0, 1.0f);
+}
+
+void Game::drawRect(SDL_FRect rect, SDL_FColor color)
+{
+    SDL_SetRenderDrawColorFloat(renderer_, color.r, color.g, color.b, color.a);
+    SDL_RenderFillRect(renderer_, &rect);
     SDL_SetRenderDrawColorFloat(renderer_, 0, 0, 0, 1.0f);
 }
