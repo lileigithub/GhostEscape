@@ -4,11 +4,9 @@
 
 class ObjectScreen : public Object
 {
-
 protected:
     glm::vec2 screenPos_ = glm::vec2();
 
 public:
-    ObjectScreen() = default;
-    ~ObjectScreen() = default;
+    void init() override {object_type_ = ObjectType::SCREEN;};
 };

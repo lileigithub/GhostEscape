@@ -3,31 +3,34 @@
 
 void SceneMain::init()
 {
+    Scene::init();
     setWordSize(game.getSceneSize() * 3.0f);
     player_ = new Player();
     player_->init();
+    addChild(player_);
 }
 
 void SceneMain::handleEvents(SDL_Event &event)
 {
-    player_->handleEvents(event);
+    Scene::handleEvents(event);
 }
 
 void SceneMain::update(float dt)
 {
-    player_->update(dt);
+    Scene::update(dt);
     // 摄像机跟随玩家，玩家位置在摄像机中心
     setCameraPos(player_->getPosition() - game.getSceneSize() / 2.0f);
 }
 
 void SceneMain::render()
 {
+    Scene::render();
     drawBackground();
-    player_->render();
 }
 
 void SceneMain::clean()
 {
+    Scene::clean();
     if (player_ != nullptr)
     {
         player_->clean();

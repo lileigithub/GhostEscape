@@ -50,6 +50,7 @@ void Game::init()
 void Game::clean()
 {
     asset_store_->clean();
+    current_scene_->clean();
     if (renderer_)
     {
         SDL_DestroyRenderer(renderer_);
@@ -63,7 +64,6 @@ void Game::clean()
 
     Mix_CloseAudio();
     Mix_Quit();
-
     SDL_Quit();
 }
 

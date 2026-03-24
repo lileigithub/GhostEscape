@@ -10,14 +10,11 @@ private:
     Player *player_ = nullptr;
 
 public:
-    SceneMain() = default;
-    ~SceneMain() = default;
-
-    virtual void init() override;
-    virtual void handleEvents(SDL_Event &event) override;
-    virtual void update(float dt) override;
-    virtual void render() override;
-    virtual void clean() override;
+    void init() override;
+    void handleEvents(SDL_Event &event) override;
+    void update(float dt) override;
+    void render() override;
+    void clean() override;
 
     void drawBackground();
 };

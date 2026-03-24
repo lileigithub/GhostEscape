@@ -4,17 +4,25 @@
 #include <vector>
 
 #include "object.h"
+#include "object_screen.h"
+#include "object_world.h"
 
 class Scene : public Object
 {
-private:
-    std::vector<Object *> objects_;
-    glm::vec2 cameraPos_ = glm::vec2();
+protected:
     glm::vec2 wordSize_ = glm::vec2();
+    glm::vec2 cameraPos_ = glm::vec2();
+    std::vector<ObjectWord *> children_world_;
+    std::vector<ObjectScreen *> children_screen_;
 
 public:
-    Scene() = default;
-    ~Scene() = default;
+    void handleEvents(SDL_Event &) override;
+    void update(float) override;
+    void render() override;
+    void clean() override;
+
+    virtual void addChild(Object *child);
+    virtual void removeChild(Object *child);
 
     void setCameraPos(glm::vec2 cameraPos);
     glm::vec2 getCameraPos() const { return cameraPos_; }
