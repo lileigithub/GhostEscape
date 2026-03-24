@@ -3,7 +3,7 @@
 
 void ObjectWord::update(float dt)
 {
-    ObjectWord::update(dt);
+    ObjectScreen::update(dt);
     //世界坐标更新后，屏幕坐标需要更新
     screenPos_ = game.getCurrentScene() ->wordPosToScreenPos(position_);
 }

@@ -38,6 +38,9 @@ void Game::init()
         SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "SDL_CreateWindowAndRenderer Error: %s", SDL_GetError());
         return;
     }
+
+    asset_store_ = new AssetStore(renderer_);
+
     frame_time_ = 1000000000 / FPS_;
 
     current_scene_ = new SceneMain();
@@ -46,6 +49,7 @@ void Game::init()
 
 void Game::clean()
 {
+    asset_store_->clean();
     if (renderer_)
     {
         SDL_DestroyRenderer(renderer_);

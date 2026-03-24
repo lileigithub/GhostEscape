@@ -5,6 +5,7 @@
 #include <SDL3_mixer/SDL_mixer.h>
 #include <SDL3_ttf/SDL_ttf.h>
 #include <glm/glm.hpp>
+#include "asset_store.h"
 
 class Scene;
 
@@ -15,6 +16,7 @@ private:
     glm::vec2 screen_size_ = glm::vec2(0);
     SDL_Window *window_ = nullptr;
     SDL_Renderer *renderer_ = nullptr;
+    AssetStore *asset_store_ = nullptr;
     bool is_running_ = true;
     Uint64 FPS_ = 60;
     Uint64 frame_time_ = 0; // 每帧的时间间隔, 单位为纳秒

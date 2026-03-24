@@ -53,6 +53,7 @@ set(SOURCES
     src/core/Game.cpp
     src/core/Scene.cpp
     src/core/ObjectWord.cpp
+    src/core/asset_store.cpp
     src/SceneMain.cpp
     src/Player.cpp
 )
