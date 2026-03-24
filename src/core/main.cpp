@@ -1,5 +1,5 @@
 #define SDL_MAIN_HANDLED
-#include "Game.h"
+#include "game.h"
 
 int main(int, char**) {
 

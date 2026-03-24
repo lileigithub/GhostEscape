@@ -1,4 +1,4 @@
-#include "Scene.h"
+#include "scene.h"
 
 glm::vec2 Scene::wordPosToScreenPos(glm::vec2 wordPos)
 {

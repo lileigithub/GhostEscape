@@ -50,12 +50,12 @@ setup_project_dependencies()
 
 set(SOURCES
     src/core/main.cpp
-    src/core/Game.cpp
-    src/core/Scene.cpp
-    src/core/ObjectWord.cpp
+    src/core/game.cpp
+    src/core/scene.cpp
+    src/core/object_world.cpp
     src/core/asset_store.cpp
-    src/SceneMain.cpp
-    src/Player.cpp
+    src/scene_main.cpp
+    src/player.cpp
 )
 
 # Windows平台添加资源文件

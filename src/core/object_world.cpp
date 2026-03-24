@@ -1,5 +1,5 @@
-#include "ObjectWord.h"
-#include "Scene.h"
+#include "object_world.h"
+#include "scene.h"
 
 void ObjectWord::update(float dt)
 {

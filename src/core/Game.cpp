@@ -1,5 +1,5 @@
 #include "Game.h"
-#include "../SceneMain.h"
+#include "../scene_main.h"
 
 void Game::init()
 {

@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "ObjectWord.h"
+#include "object_world.h"
 
 class Actor : public ObjectWord
 {

@@ -1,5 +1,5 @@
 ﻿#include "player.h"
-#include "core/Scene.h"
+#include "core/scene.h"
 
 void Player::init()
 {

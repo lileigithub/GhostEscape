@@ -3,7 +3,7 @@
 #include <glm/glm.hpp>
 #include <vector>
 
-#include "Object.h"
+#include "object.h"
 
 class Scene : public Object
 {

@@ -1,4 +1,4 @@
-#include "SceneMain.h"
+#include "scene_main.h"
 #include "Player.h"
 
 void SceneMain::init()

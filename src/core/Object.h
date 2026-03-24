@@ -2,7 +2,7 @@
 
 #include <SDL3/SDL.h>
 
-#include "Game.h"
+#include "game.h"
 
 class Object
 {

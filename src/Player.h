@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "core/Actor.h"
+#include "core/actor.h"
 
 class Player : public Actor{
 

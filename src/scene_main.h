@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "core/Scene.h"
+#include "core/scene.h"
 
 class Player;
 

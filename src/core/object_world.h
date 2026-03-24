@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include "ObjectScreen.h"
+#include "object_screen.h"
 
 class ObjectWord : public ObjectScreen
 {
