@@ -48,21 +48,18 @@ setup_project_dependencies()
 # 项目源文件
 # ============================================
 
-# 自动加载cpp文件
-file(GLOB_RECURSE SOURCES 
-    ${CMAKE_SOURCE_DIR}/src/*.cpp
+set(SOURCES
+    src/affiliates/sprite.cpp
+    src/affiliates/sprite_anim.cpp
+    src/core/asset_store.cpp
+    src/core/game.cpp
+    src/core/main.cpp
+    src/core/object_world.cpp
+    src/core/object.cpp
+    src/core/scene.cpp
+    src/player.cpp
+    src/scene_main.cpp
 )
-
-#set(SOURCES
-#    src/core/asset_store.cpp
-#    src/core/game.cpp
-#    src/core/main.cpp
-#    src/core/object_world.cpp
-#    src/core/object.cpp
-#    src/core/scene.cpp
-#    src/player.cpp
-#    src/scene_main.cpp
-#)
 
 # Windows平台添加资源文件
 # if(WIN32)

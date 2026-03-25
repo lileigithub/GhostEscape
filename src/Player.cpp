@@ -1,16 +1,12 @@
 ﻿#include "player.h"
+#include "affiliates/sprite_anim.h"
 #include "core/scene.h"
-#include "affiliates/sprite.h"
 
 void Player::init()
 {
     maxSpeed_ = 500.f;
     setPosition(game_.getCurrentScene()->getWordSize() / 2.0f);
-    ImageTexture *imageTexture = new ImageTexture("assets/sprite/ghost-idle.png");
-    Sprite *sprite = new Sprite();
-    sprite->setImageTexture(imageTexture);
-    sprite->setParent(this);
-    addChild(sprite);
+    Sprite::createSpriteAddChild<SpriteAnim>(this, "assets/sprite/ghost-idle.png", 2.0f);
 };
 void Player::handleEvents(SDL_Event &event)
 {
@@ -24,8 +20,8 @@ void Player::update(float dt)
 }
 void Player::render()
 {
+    game_.drawRect({getScreenPos().x, getScreenPos().y, 10.0f, 10.0f}, {255, 255, 255, 255});
     Actor::render();
-    //game_.drawRect({screen_pos_.x - 20, screen_pos_.y - 20, 40, 40}, {255, 255, 255, 255});
 }
 void Player::clean()
 {

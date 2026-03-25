@@ -5,6 +5,8 @@
 
 class ObjectAffiliate : public Object
 {
+    float scale_ = 1.0f;
+
 protected:
     ObjectScreen *parent_ = nullptr;
     float offset_ = 0.0f;
@@ -17,4 +19,10 @@ public:
     void setOffset(float offset) { offset_ = offset; }
     glm::vec2 getSize() const { return size_; }
     void setSize(glm::vec2 size) { size_ = size; }
+
+    void setScale(float scale)
+    {
+        scale_ = scale;
+        size_ *= scale;
+    }
 };

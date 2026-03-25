@@ -1,8 +1,8 @@
 #pragma once
 
+#include "../core/object_affiliate.h"
 #include <glm/glm.hpp>
 #include <string>
-#include "../core/object_affiliate.h"
 
 struct ImageTexture
 {
@@ -18,10 +18,24 @@ public:
 
 class Sprite : public ObjectAffiliate
 {
+protected:
     ImageTexture *imageTexture_;
 
 public:
     void render() override;
     void clean() override;
-    void setImageTexture(ImageTexture *imageTexture);
+    virtual void setImageTexture(ImageTexture *imageTexture);
+    template <typename T> static T *createSpriteAddChild(ObjectScreen *parent, const std::string &path, float scale);
 };
+
+template <typename T> T *Sprite::createSpriteAddChild(ObjectScreen *parent, const std::string &path, float scale)
+{
+    ImageTexture *imageTexture = new ImageTexture(path);
+    T *sprite = new T();
+    sprite -> init();
+    sprite->setImageTexture(imageTexture);
+    sprite->setScale(scale);
+    sprite->setParent(parent);
+    parent->addChild(sprite);
+    return sprite;
+}

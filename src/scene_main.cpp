@@ -17,15 +17,15 @@ void SceneMain::handleEvents(SDL_Event &event)
 
 void SceneMain::update(float dt)
 {
-    Scene::update(dt);
     // 摄像机跟随玩家，玩家位置在摄像机中心
     setCameraPos(player_->getPosition() - game_.getSceneSize() / 2.0f);
+    Scene::update(dt);
 }
 
 void SceneMain::render()
 {
-    Scene::render();
     drawBackground();
+    Scene::render();
 }
 
 void SceneMain::clean()

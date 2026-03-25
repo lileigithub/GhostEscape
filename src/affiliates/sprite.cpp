@@ -30,6 +30,6 @@ void Sprite::clean()
 
 void Sprite::setImageTexture(ImageTexture *imageTexture)
 {
-    size_ = glm::vec2(imageTexture->src_rect.w, imageTexture->src_rect.h);
     imageTexture_ = imageTexture;
+    size_ = glm::vec2(imageTexture_->src_rect.w, imageTexture_->src_rect.h);
 }

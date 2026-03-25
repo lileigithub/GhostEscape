@@ -11,7 +11,7 @@ void ObjectWord::update(float dt)
 void ObjectWord::setPosition(const glm::vec2 &position)
 {
     position_ = position;
-    screen_pos_ = game_.getCurrentScene() ->wordPosToScreenPos(position);
+    screen_pos_ = game_.getCurrentScene() -> wordPosToScreenPos(position);
 }
 
 void ObjectWord::setScreenPos(const glm::vec2 &screenPos)
