@@ -9,7 +9,7 @@ struct ImageTexture
     SDL_Texture *texture;
     SDL_FRect src_rect{};
     float angle = 0.0f;
-    SDL_FlipMode flip = SDL_FLIP_NONE;
+    SDL_FlipMode flip_ = SDL_FLIP_NONE;
 
 public:
     ImageTexture() = default;
@@ -26,6 +26,7 @@ public:
     void clean() override;
     virtual void setImageTexture(ImageTexture *imageTexture);
     template <typename T> static T *createSpriteAddChild(ObjectScreen *parent, const std::string &path, float scale);
+    void setFlip(SDL_FlipMode flip) {imageTexture_->flip_ = flip;};
 };
 
 template <typename T> T *Sprite::createSpriteAddChild(ObjectScreen *parent, const std::string &path, float scale)

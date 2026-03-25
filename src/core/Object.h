@@ -12,6 +12,7 @@ protected:
     Game &game_ = Game::getInstance();
     ObjectType object_type_ = ObjectType::NONE;
     std::vector<Object *> children_;
+    bool is_active_ = true;
 
 public:
     Object() = default;
@@ -27,4 +28,6 @@ public:
     virtual void removeChild(Object *child);
     
     ObjectType getObjectType() { return object_type_; }
+    bool isActive() { return is_active_; }
+    void setActive(bool active) { is_active_ = active; }
 };

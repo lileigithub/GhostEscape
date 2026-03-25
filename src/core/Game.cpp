@@ -155,5 +155,5 @@ void Game::renderTexture(ImageTexture *imageTexture, glm::vec2 pos, glm::vec2 si
 {
     SDL_FRect dstrect{pos.x, pos.y, size.x, size.y};
     SDL_RenderTextureRotated(renderer_, imageTexture->texture, &imageTexture->src_rect,
-                             &dstrect, imageTexture->angle, nullptr, imageTexture->flip);
+                             &dstrect, imageTexture->angle, nullptr, imageTexture->flip_);
 }

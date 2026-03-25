@@ -2,10 +2,16 @@
 
 #include "core/actor.h"
 
-class Player : public Actor{
+class SpriteAnim;
 
+class Player : public Actor
+{
+
+    SpriteAnim *idleAnim_;
+    SpriteAnim *moveAnim_;
     float maxSpeed_ = 0.0f;
-    
+    bool is_moving_ = false;
+
 public:
     Player() = default;
     ~Player() = default;
@@ -17,4 +23,5 @@ public:
     virtual void clean();
     void keyBoardControl();
     void move(float deltaTime);
+    void changeState();
 };

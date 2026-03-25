@@ -6,7 +6,8 @@ void Player::init()
 {
     maxSpeed_ = 500.f;
     setPosition(game_.getCurrentScene()->getWordSize() / 2.0f);
-    Sprite::createSpriteAddChild<SpriteAnim>(this, "assets/sprite/ghost-idle.png", 2.0f);
+    idleAnim_ = Sprite::createSpriteAddChild<SpriteAnim>(this, "assets/sprite/ghost-idle.png", 2.0f);
+    moveAnim_ = Sprite::createSpriteAddChild<SpriteAnim>(this, "assets/sprite/ghost-move.png", 2.0f);
 };
 void Player::handleEvents(SDL_Event &event)
 {
@@ -17,6 +18,7 @@ void Player::update(float dt)
     Actor::update(dt);
     keyBoardControl();
     move(dt);
+    changeState();
 }
 void Player::render()
 {
@@ -58,4 +60,41 @@ void Player::keyBoardControl()
 void Player::move(float deltaTime)
 {
     setPosition(glm::clamp(getPosition() + velocity * deltaTime, glm::vec2(), game_.getCurrentScene()->getWordSize()));
+}
+
+void Player::changeState()
+{
+    // 根据速度翻转精灵
+    if (velocity.x < 0.0f)
+    {
+        idleAnim_->setFlip(SDL_FLIP_HORIZONTAL);
+        moveAnim_->setFlip(SDL_FLIP_HORIZONTAL);
+
+    }
+    else if (velocity.x > 0.0f)
+    {
+        idleAnim_->setFlip(SDL_FLIP_NONE);
+        moveAnim_->setFlip(SDL_FLIP_NONE);
+    }
+
+    bool new_is_moving = glm::length(velocity) > 0.1f;
+    if (new_is_moving != is_moving_)
+    { // 如果状态改变
+        is_moving_ = new_is_moving;
+        if (is_moving_)
+        {
+            idleAnim_->setActive(false);
+            moveAnim_->setActive(true);
+            // 让帧数保持一致
+            moveAnim_-> setFrameTimer(idleAnim_->getFrameTimer());
+            moveAnim_-> setCurrentFrame(idleAnim_->getCurrentFrame());
+        }
+        else
+        {
+            idleAnim_->setActive(true);
+            moveAnim_->setActive(false);
+            idleAnim_-> setFrameTimer(moveAnim_->getFrameTimer());
+            idleAnim_-> setCurrentFrame(moveAnim_->getCurrentFrame());
+        }
+    }
 }
