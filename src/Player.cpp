@@ -1,22 +1,36 @@
 ﻿#include "player.h"
 #include "core/scene.h"
+#include "affiliates/sprite.h"
 
 void Player::init()
 {
     maxSpeed_ = 500.f;
-    setPosition(game.getCurrentScene()->getWordSize() / 2.0f);
+    setPosition(game_.getCurrentScene()->getWordSize() / 2.0f);
+    ImageTexture *imageTexture = new ImageTexture("assets/sprite/ghost-idle.png");
+    Sprite *sprite = new Sprite();
+    sprite->setImageTexture(imageTexture);
+    sprite->setParent(this);
+    addChild(sprite);
 };
-void Player::handleEvents(SDL_Event &) {}
+void Player::handleEvents(SDL_Event &event)
+{
+    Actor::handleEvents(event);
+}
 void Player::update(float dt)
 {
+    Actor::update(dt);
     keyBoardControl();
     move(dt);
 }
 void Player::render()
 {
-    game.drawRect({screenPos_.x - 20, screenPos_.y - 20, 40, 40}, {255, 255, 255, 255});
+    Actor::render();
+    //game_.drawRect({screen_pos_.x - 20, screen_pos_.y - 20, 40, 40}, {255, 255, 255, 255});
 }
-void Player::clean() {}
+void Player::clean()
+{
+    Actor::clean();
+}
 void Player::keyBoardControl()
 {
     velocity *= 0.9f;
@@ -40,7 +54,6 @@ void Player::keyBoardControl()
     if (keyState[SDL_SCANCODE_D] || keyState[SDL_SCANCODE_RIGHT])
     {
         xSpeedVelocity += maxSpeed_;
-        
     }
     velocity.x = xSpeedVelocity;
     velocity.y = ySpeedVelocity;
@@ -48,5 +61,5 @@ void Player::keyBoardControl()
 
 void Player::move(float deltaTime)
 {
-    setPosition(glm::clamp(getPosition() + velocity * deltaTime, glm::vec2(), game.getCurrentScene()->getWordSize()));
+    setPosition(glm::clamp(getPosition() + velocity * deltaTime, glm::vec2(), game_.getCurrentScene()->getWordSize()));
 }

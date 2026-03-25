@@ -1,5 +1,6 @@
 #include "game.h"
 #include "../scene_main.h"
+#include "../affiliates/sprite.h"
 
 void Game::init()
 {
@@ -148,4 +149,11 @@ void Game::drawRect(SDL_FRect rect, SDL_FColor color)
     SDL_SetRenderDrawColorFloat(renderer_, color.r, color.g, color.b, color.a);
     SDL_RenderFillRect(renderer_, &rect);
     SDL_SetRenderDrawColorFloat(renderer_, 0, 0, 0, 1.0f);
+}
+
+void Game::renderTexture(ImageTexture *imageTexture, glm::vec2 pos, glm::vec2 size)
+{
+    SDL_FRect dstrect{pos.x, pos.y, size.x, size.y};
+    SDL_RenderTextureRotated(renderer_, imageTexture->texture, &imageTexture->src_rect,
+                             &dstrect, imageTexture->angle, nullptr, imageTexture->flip);
 }

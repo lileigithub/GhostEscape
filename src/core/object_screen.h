@@ -5,8 +5,9 @@
 class ObjectScreen : public Object
 {
 protected:
-    glm::vec2 screenPos_ = glm::vec2();
+    glm::vec2 screen_pos_ = glm::vec2();
 
 public:
     void init() override {object_type_ = ObjectType::SCREEN;};
+    glm::vec2 getScreenPos() const {return screen_pos_;}
 };

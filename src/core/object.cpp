@@ -39,7 +39,7 @@ void Object::clean()
 
 void Object::addChild(Object *child)
 {
-    if (child == nullptr)
+    if (child != nullptr)
     {
         children_.push_back(child);
     }

@@ -9,7 +9,7 @@
 class Object
 {
 protected:
-    Game &game = Game::getInstance();
+    Game &game_ = Game::getInstance();
     ObjectType object_type_ = ObjectType::NONE;
     std::vector<Object *> children_;
 
