@@ -1,5 +1,5 @@
 #include "scene_main.h"
-#include "Player.h"
+#include "player.h"
 
 void SceneMain::init()
 {

@@ -48,6 +48,7 @@ setup_project_dependencies()
 # 项目源文件
 # ============================================
 
+# 自动加载cpp文件
 file(GLOB_RECURSE SOURCES 
     ${CMAKE_SOURCE_DIR}/src/*.cpp
 )

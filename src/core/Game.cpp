@@ -1,4 +1,4 @@
-#include "Game.h"
+#include "game.h"
 #include "../scene_main.h"
 
 void Game::init()
