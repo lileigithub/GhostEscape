@@ -12,12 +12,10 @@ private:
 
 public:
     void init() override { object_type_ = ObjectType::WORLD; };
-    virtual void update(float dt) override;
+    void update(float dt) override;
 
     void setPosition(const glm::vec2 &position);
-
     void setScreenPos(const glm::vec2 &screenPos);
-
     glm::vec2 getPosition() const override
     {
         return position_;

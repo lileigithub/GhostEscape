@@ -9,8 +9,5 @@ protected:
     float max_speed_ = 100.0f;
     bool is_moving_ = false;
 public:
-    Actor() = default;
-    ~Actor() = default;
-
     void move(float dt);
 };

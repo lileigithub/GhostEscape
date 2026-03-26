@@ -22,8 +22,8 @@ public:
     void render() override;
     void clean() override;
 
-    virtual void addChild(Object *child);
-    virtual void removeChild(Object *child);
+    void addChild(Object *child) override;
+    void removeChild(Object *child) override;
 
     void setCameraPos(glm::vec2 cameraPos);
     glm::vec2 getCameraPos() const { return cameraPos_; }

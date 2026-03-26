@@ -11,7 +11,7 @@ void Enemy::init()
     dead_anim_->setLoop(false);
     hurt_anim_->setActive(false);
     dead_anim_->setActive(false);
-    collider_ = Collider::creatColliderAddChild(this, normal_anim_->getSize(), glm::vec2());
+    collider_ = Collider::creatColliderAddChild(this, normal_anim_->getSize());
 }
 
 void Enemy::update(float dt)

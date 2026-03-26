@@ -25,16 +25,17 @@ public:
     void render() override;
     void clean() override;
     virtual void setImageTexture(ImageTexture *imageTexture);
-    template <typename T> static T *createSpriteAddChild(ObjectScreen *parent, const std::string &path, float scale);
+    template <typename T> static T *createSpriteAddChild(ObjectScreen *parent, const std::string &path, float scale, Anchor anchor = Anchor::CENTER);
     void setFlip(SDL_FlipMode flip) {imageTexture_->flip_ = flip;};
 };
 
-template <typename T> T *Sprite::createSpriteAddChild(ObjectScreen *parent, const std::string &path, float scale)
+template <typename T> T *Sprite::createSpriteAddChild(ObjectScreen *parent, const std::string &path, float scale, Anchor anchor)
 {
     ImageTexture *imageTexture = new ImageTexture(path);
     T *sprite = new T();
     sprite -> init();
     sprite->setImageTexture(imageTexture);
+    sprite->setAnchor(anchor);
     sprite->setScale(scale);
     sprite->setParent(parent);
     parent->addChild(sprite);

@@ -5,24 +5,39 @@
 
 class ObjectAffiliate : public Object
 {
+    glm::vec2 size_{};
     float scale_ = 1.0f;
+
+public:
+    enum Anchor
+    {
+        NONE,
+        TOP_LEFT,
+        TOP_CENTER,
+        TOP_RIGHT,
+        LEFT_CENTER,
+        RIGHT_CENTER,
+        BOTTOM_LEFT,
+        BOTTOM_CENTER,
+        BOTTOM_RIGHT,
+        CENTER
+    };
 
 protected:
     ObjectScreen *parent_ = nullptr;
     glm::vec2 offset_{};
-    glm::vec2 size_{};
+    Anchor anchor_ = CENTER;
 
 public:
+    void resetOffsetByAnchor(Anchor anchor);
     ObjectScreen *getParent() const { return parent_; }
     void setParent(ObjectScreen *parent) { parent_ = parent; }
     glm::vec2 getOffset() { return offset_; }
     void setOffset(glm::vec2 offset) { offset_ = offset; }
     glm::vec2 getSize() const { return size_; }
-    void setSize(glm::vec2 size) { size_ = size; }
+    void setSize(glm::vec2 size);
+    Anchor getAnchor() const { return anchor_; }
+    void setAnchor(Anchor anchor) { anchor_ = anchor; }
 
-    void setScale(float scale)
-    {
-        scale_ = scale;
-        size_ *= scale;
-    }
+    void setScale(float scale);
 };

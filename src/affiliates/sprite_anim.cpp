@@ -10,7 +10,8 @@ void SpriteAnim::update(float dt)
         if (++currentFrame_ == totalFrame_)
         {
             currentFrame_ = 0;
-            if (!is_loop_) {
+            if (!is_loop_)
+            {
                 is_active_ = false;
             }
         }
@@ -24,5 +25,5 @@ void SpriteAnim::setImageTexture(ImageTexture *imageTexture)
     imageTexture_ = imageTexture;
     totalFrame_ = static_cast<int>(imageTexture_->src_rect.w / imageTexture_->src_rect.h);
     imageTexture_->src_rect.w = imageTexture_->src_rect.h;
-    size_ = glm::vec2(imageTexture_->src_rect.w, imageTexture_->src_rect.h);
+    setSize(glm::vec2(imageTexture_->src_rect.w, imageTexture_->src_rect.h));
 }

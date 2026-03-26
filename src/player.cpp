@@ -9,7 +9,7 @@ void Player::init()
     setPosition(game_.getCurrentScene()->getWordSize() / 2.0f);
     idleAnim_ = Sprite::createSpriteAddChild<SpriteAnim>(this, "assets/sprite/ghost-idle.png", 2.0f);
     moveAnim_ = Sprite::createSpriteAddChild<SpriteAnim>(this, "assets/sprite/ghost-move.png", 2.0f);
-    collider_ = Collider::creatColliderAddChild(this, idleAnim_->getSize(), glm::vec2());
+    collider_ = Collider::creatColliderAddChild(this, idleAnim_->getSize() / 2.0f);
 };
 void Player::handleEvents(SDL_Event &event)
 {
@@ -25,7 +25,9 @@ void Player::update(float dt)
 void Player::render()
 {
     Actor::render();
+#ifdef DEBUG_MODE
     game_.drawRect({getScreenPos().x, getScreenPos().y, 10.0f, 10.0f}, {255, 255, 255, 255});
+#endif
 }
 void Player::clean()
 {
@@ -66,7 +68,6 @@ void Player::changeState()
     {
         idleAnim_->setFlip(SDL_FLIP_HORIZONTAL);
         moveAnim_->setFlip(SDL_FLIP_HORIZONTAL);
-
     }
     else if (velocity_.x > 0.0f)
     {
@@ -83,15 +84,15 @@ void Player::changeState()
             idleAnim_->setActive(false);
             moveAnim_->setActive(true);
             // 让帧数保持一致
-            moveAnim_-> setFrameTimer(idleAnim_->getFrameTimer());
-            moveAnim_-> setCurrentFrame(idleAnim_->getCurrentFrame());
+            moveAnim_->setFrameTimer(idleAnim_->getFrameTimer());
+            moveAnim_->setCurrentFrame(idleAnim_->getCurrentFrame());
         }
         else
         {
             idleAnim_->setActive(true);
             moveAnim_->setActive(false);
-            idleAnim_-> setFrameTimer(moveAnim_->getFrameTimer());
-            idleAnim_-> setCurrentFrame(moveAnim_->getCurrentFrame());
+            idleAnim_->setFrameTimer(moveAnim_->getFrameTimer());
+            idleAnim_->setCurrentFrame(moveAnim_->getCurrentFrame());
         }
     }
 }

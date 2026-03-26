@@ -19,7 +19,7 @@ void Sprite::render()
     {
         return;
     }
-    game_.renderTexture(imageTexture_, parent_->getScreenPos() + offset_, size_);
+    game_.renderTexture(imageTexture_, parent_->getScreenPos() + offset_, getSize());
 }
 
 void Sprite::clean()
@@ -31,5 +31,5 @@ void Sprite::clean()
 void Sprite::setImageTexture(ImageTexture *imageTexture)
 {
     imageTexture_ = imageTexture;
-    size_ = glm::vec2(imageTexture_->src_rect.w, imageTexture_->src_rect.h);
+    setSize(glm::vec2(imageTexture_->src_rect.w, imageTexture_->src_rect.h));
 }
