@@ -5,9 +5,12 @@
 class Actor : public ObjectWord
 {
 protected:
-    glm::vec2 velocity = glm::vec2();
-
+    glm::vec2 velocity_ = glm::vec2();
+    float max_speed_ = 100.0f;
+    bool is_moving_ = false;
 public:
     Actor() = default;
     ~Actor() = default;
+
+    void move(float dt);
 };

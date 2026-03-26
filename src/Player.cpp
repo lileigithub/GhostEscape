@@ -4,7 +4,8 @@
 
 void Player::init()
 {
-    maxSpeed_ = 500.f;
+    Actor::init();
+    max_speed_ = 500.f;
     setPosition(game_.getCurrentScene()->getWordSize() / 2.0f);
     idleAnim_ = Sprite::createSpriteAddChild<SpriteAnim>(this, "assets/sprite/ghost-idle.png", 2.0f);
     moveAnim_ = Sprite::createSpriteAddChild<SpriteAnim>(this, "assets/sprite/ghost-move.png", 2.0f);
@@ -17,13 +18,13 @@ void Player::update(float dt)
 {
     Actor::update(dt);
     keyBoardControl();
-    move(dt);
+    Actor::move(dt);
     changeState();
 }
 void Player::render()
 {
-    game_.drawRect({getScreenPos().x, getScreenPos().y, 10.0f, 10.0f}, {255, 255, 255, 255});
     Actor::render();
+    game_.drawRect({getScreenPos().x, getScreenPos().y, 10.0f, 10.0f}, {255, 255, 255, 255});
 }
 void Player::clean()
 {
@@ -31,7 +32,7 @@ void Player::clean()
 }
 void Player::keyBoardControl()
 {
-    velocity *= 0.9f;
+    velocity_ *= 0.9f;
 
     float xSpeedVelocity = 0.0f;
     float ySpeedVelocity = 0.0f;
@@ -39,45 +40,40 @@ void Player::keyBoardControl()
     auto keyState = SDL_GetKeyboardState(NULL);
     if (keyState[SDL_SCANCODE_W] || keyState[SDL_SCANCODE_UP])
     {
-        ySpeedVelocity -= maxSpeed_;
+        ySpeedVelocity -= max_speed_;
     }
     if (keyState[SDL_SCANCODE_S] || keyState[SDL_SCANCODE_DOWN])
     {
-        ySpeedVelocity += maxSpeed_;
+        ySpeedVelocity += max_speed_;
     }
     if (keyState[SDL_SCANCODE_A] || keyState[SDL_SCANCODE_LEFT])
     {
-        xSpeedVelocity -= maxSpeed_;
+        xSpeedVelocity -= max_speed_;
     }
     if (keyState[SDL_SCANCODE_D] || keyState[SDL_SCANCODE_RIGHT])
     {
-        xSpeedVelocity += maxSpeed_;
+        xSpeedVelocity += max_speed_;
     }
-    velocity.x = xSpeedVelocity;
-    velocity.y = ySpeedVelocity;
-}
-
-void Player::move(float deltaTime)
-{
-    setPosition(glm::clamp(getPosition() + velocity * deltaTime, glm::vec2(), game_.getCurrentScene()->getWordSize()));
+    velocity_.x = xSpeedVelocity;
+    velocity_.y = ySpeedVelocity;
 }
 
 void Player::changeState()
 {
     // 根据速度翻转精灵
-    if (velocity.x < 0.0f)
+    if (velocity_.x < 0.0f)
     {
         idleAnim_->setFlip(SDL_FLIP_HORIZONTAL);
         moveAnim_->setFlip(SDL_FLIP_HORIZONTAL);
 
     }
-    else if (velocity.x > 0.0f)
+    else if (velocity_.x > 0.0f)
     {
         idleAnim_->setFlip(SDL_FLIP_NONE);
         moveAnim_->setFlip(SDL_FLIP_NONE);
     }
 
-    bool new_is_moving = glm::length(velocity) > 0.1f;
+    bool new_is_moving = glm::length(velocity_) > 0.1f;
     if (new_is_moving != is_moving_)
     { // 如果状态改变
         is_moving_ = new_is_moving;

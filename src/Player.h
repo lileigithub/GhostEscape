@@ -9,8 +9,7 @@ class Player : public Actor
 
     SpriteAnim *idleAnim_;
     SpriteAnim *moveAnim_;
-    float maxSpeed_ = 0.0f;
-    bool is_moving_ = false;
+
 
 public:
     Player() = default;
@@ -22,6 +21,5 @@ public:
     virtual void render();
     virtual void clean();
     void keyBoardControl();
-    void move(float deltaTime);
     void changeState();
 };

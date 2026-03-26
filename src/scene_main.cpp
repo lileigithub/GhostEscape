@@ -1,5 +1,6 @@
 #include "scene_main.h"
 #include "player.h"
+#include "Enemy.h"
 
 void SceneMain::init()
 {
@@ -7,6 +8,9 @@ void SceneMain::init()
     setWordSize(game_.getSceneSize() * 3.0f);
     player_ = new Player();
     player_->init();
+    Enemy *enemy = new Enemy(player_);
+    enemy->init();
+    addChild(enemy);
     addChild(player_);
 }
 

@@ -57,8 +57,10 @@ set(SOURCES
     src/core/object_world.cpp
     src/core/object.cpp
     src/core/scene.cpp
+    src/core/actor.cpp
     src/player.cpp
     src/scene_main.cpp
+    src/enemy.cpp
 )
 
 # Windows平台添加资源文件
