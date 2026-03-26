@@ -13,6 +13,7 @@ protected:
     ObjectType object_type_ = ObjectType::NONE;
     std::vector<Object *> children_;
     bool is_active_ = true;
+    bool need_remove_ = false;
 
 public:
     Object() = default;
@@ -30,4 +31,6 @@ public:
     ObjectType getObjectType() { return object_type_; }
     bool isActive() { return is_active_; }
     void setActive(bool active) { is_active_ = active; }
+    bool getNeedRemove() { return need_remove_; }
+    void setNeedRemove(bool remove) { need_remove_ = remove; }
 };

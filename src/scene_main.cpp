@@ -11,7 +11,7 @@ void SceneMain::init()
     Enemy *enemy = new Enemy(player_);
     enemy->init();
     addChild(enemy);
-    addChild(player_);
+    addChild(player_);// 让玩家比敌人后渲染
 }
 
 void SceneMain::handleEvents(SDL_Event &event)

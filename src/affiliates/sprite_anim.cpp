@@ -10,6 +10,9 @@ void SpriteAnim::update(float dt)
         if (++currentFrame_ == totalFrame_)
         {
             currentFrame_ = 0;
+            if (!is_loop_) {
+                is_active_ = false;
+            }
         }
         frameTimer_ = 0.0f;
         imageTexture_->src_rect.x = currentFrame_ * imageTexture_->src_rect.h;

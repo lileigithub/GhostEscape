@@ -10,6 +10,7 @@ protected:
     int totalFrame_ = 0;
     int FPS_ = 10;
     float frameTimer_ = 0.0f;
+    bool is_loop_ = true;
 
 public:
     void update(float dt) override;
@@ -24,5 +25,6 @@ public:
     void setFPS(int fps) { FPS_ = fps; }
     float getFrameTimer() { return frameTimer_; }
     void setFrameTimer(float timer) { frameTimer_ = timer; }
+    void setLoop(bool loop) { is_loop_ = loop; }
 
 };

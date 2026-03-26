@@ -6,12 +6,21 @@ void Object::init()
 
 void Object::handleEvents(SDL_Event &event)
 {
-    for (auto &child : children_)
+    for (auto it = children_.begin(); it != children_.end();)
     {
-        if (child->isActive())
+        auto child = *it;
+        if (child->need_remove_)
+        {
+            it = children_.erase(it);
+            child->clean();
+            delete child;
+            continue;
+        }
+        else if (child->isActive())
         {
             child->handleEvents(event);
         }
+        it++;
     }
 }
 
@@ -42,6 +51,7 @@ void Object::clean()
     for (auto &child : children_)
     {
         child->clean();
+        delete child;
     }
     children_.clear();
 }

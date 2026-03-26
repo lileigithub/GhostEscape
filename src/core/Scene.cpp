@@ -18,11 +18,38 @@ void Scene::setCameraPos(glm::vec2 cameraPos)
 void Scene::handleEvents(SDL_Event & event)
 {
     Object::handleEvents(event);
-    for (auto child : children_screen_) {
-        child->handleEvents(event);
+    for (auto it = children_screen_.begin(); it != children_screen_.end();)
+    {
+        auto child = *it;
+        if (child->getNeedRemove())
+        {
+            it = children_screen_.erase(it);
+            child->clean();
+            delete child;
+            continue;
+        }
+        else if (child->isActive())
+        {
+            child->handleEvents(event);
+        }
+        it++;
     }
-    for (auto child : children_world_) {
-        child->handleEvents(event);
+    for (auto it = children_world_.begin(); it != children_world_.end();)
+    {
+        auto child = *it;
+        if (child->getNeedRemove())
+        {
+            it = children_world_.erase(it);
+            child->clean();
+            delete child;
+            SDL_LogInfo(SDL_LOG_CATEGORY_APPLICATION, "child deleted");
+            continue;
+        }
+        else if (child->isActive())
+        {
+            child->handleEvents(event);
+        }
+        it++;
     }
 }
 void Scene::update(float dt)
@@ -50,10 +77,12 @@ void Scene::clean()
     Object::clean();
     for (auto child : children_world_) {
         child->clean();
+        delete child;
     }
     children_world_.clear();
     for (auto child : children_screen_) {
         child->clean();
+        delete child;
     }
     children_screen_.clear();
 }

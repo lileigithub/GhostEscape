@@ -51,7 +51,9 @@ void Game::init()
 void Game::clean()
 {
     asset_store_->clean();
+    delete asset_store_;
     current_scene_->clean();
+    delete current_scene_;
     if (renderer_)
     {
         SDL_DestroyRenderer(renderer_);
