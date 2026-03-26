@@ -1,8 +1,12 @@
 ﻿#pragma once
+#include "../affiliates/collider.h"
 #include "object_screen.h"
 
 class ObjectWord : public ObjectScreen
 {
+protected:
+    Collider *collider_ = nullptr;
+
 private:
     glm::vec2 position_ = glm::vec2();
 
@@ -14,8 +18,9 @@ public:
 
     void setScreenPos(const glm::vec2 &screenPos);
 
-    glm::vec2 getPosition() const
+    glm::vec2 getPosition() const override
     {
         return position_;
     }
+    Collider* getCollider() { return collider_; }
 };

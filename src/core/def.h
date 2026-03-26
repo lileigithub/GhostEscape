@@ -5,3 +5,5 @@ enum class ObjectType {
     WORLD,
     SCREEN
 };
+
+#define DEBUG_MODE

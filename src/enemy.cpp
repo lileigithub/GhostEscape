@@ -8,9 +8,10 @@ void Enemy::init()
     normal_anim_ = Sprite::createSpriteAddChild<SpriteAnim>(this, "assets/sprite/ghost-Sheet.png", 2.0f);
     hurt_anim_ = Sprite::createSpriteAddChild<SpriteAnim>(this, "assets/sprite/ghostHurt-Sheet.png", 2.0f);
     dead_anim_ = Sprite::createSpriteAddChild<SpriteAnim>(this, "assets/sprite/ghostDead-Sheet.png", 2.0f);
-    dead_anim_-> setLoop(false);
+    dead_anim_->setLoop(false);
     hurt_anim_->setActive(false);
     dead_anim_->setActive(false);
+    collider_ = Collider::creatColliderAddChild(this, normal_anim_->getSize(), glm::vec2());
 }
 
 void Enemy::update(float dt)
@@ -18,17 +19,15 @@ void Enemy::update(float dt)
     Actor::update(dt);
     aimTarget();
     Actor::move(dt);
-    //测试用 自动切换状态
-    timer_ += dt;
-    if (timer_ > 2.0f && timer_ < 4.0f) {
-        changeState(State::HURT);
-    } else if (timer_ > 4.0f) {
-        changeState(State::DEAD);
-        //死亡动画停止后，删除敌人
-        if (!dead_anim_->isActive()) {
-            setNeedRemove(true);
-        }
+    checkCollision(target_->getCollider());
+}
+
+bool Enemy::checkCollision(Collider *other)
+{
+    if (collider_->isColliding(other)) {
+        return true;
     }
+    return false;
 }
 
 void Enemy::aimTarget()
@@ -43,7 +42,8 @@ void Enemy::aimTarget()
 
 void Enemy::changeState(State state)
 {
-    if (state == NULL) return;
+    if (state == NULL)
+        return;
     if (current_state_ != state)
     {
         current_state_ = state;
@@ -65,5 +65,15 @@ void Enemy::changeState(State state)
             dead_anim_->setActive(true);
             break;
         }
+    }
+}
+
+void Enemy::dead()
+{
+    changeState(State::DEAD);
+    // 死亡动画停止后，删除敌人
+    if (!dead_anim_->isActive())
+    {
+        setNeedRemove(true);
     }
 }

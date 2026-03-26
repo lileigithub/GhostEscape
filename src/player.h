@@ -6,10 +6,8 @@ class SpriteAnim;
 
 class Player : public Actor
 {
-
     SpriteAnim *idleAnim_;
     SpriteAnim *moveAnim_;
-
 
 public:
     Player() = default;

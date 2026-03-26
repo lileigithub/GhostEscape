@@ -10,6 +10,7 @@ void SceneMain::init()
     player_->init();
     Enemy *enemy = new Enemy(player_);
     enemy->init();
+
     addChild(enemy);
     addChild(player_);// 让玩家比敌人后渲染
 }
@@ -35,12 +36,7 @@ void SceneMain::render()
 void SceneMain::clean()
 {
     Scene::clean();
-    if (player_ != nullptr)
-    {
-        player_->clean();
-        delete player_;
-        player_ = nullptr;
-    }
+    // 加入child里的，都由Scene清理了，这里不用管了
 }
 
 void SceneMain::drawBackground()

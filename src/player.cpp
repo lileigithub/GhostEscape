@@ -9,6 +9,7 @@ void Player::init()
     setPosition(game_.getCurrentScene()->getWordSize() / 2.0f);
     idleAnim_ = Sprite::createSpriteAddChild<SpriteAnim>(this, "assets/sprite/ghost-idle.png", 2.0f);
     moveAnim_ = Sprite::createSpriteAddChild<SpriteAnim>(this, "assets/sprite/ghost-move.png", 2.0f);
+    collider_ = Collider::creatColliderAddChild(this, idleAnim_->getSize(), glm::vec2());
 };
 void Player::handleEvents(SDL_Event &event)
 {

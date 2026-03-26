@@ -153,6 +153,14 @@ void Game::drawRect(SDL_FRect rect, SDL_FColor color)
     SDL_SetRenderDrawColorFloat(renderer_, 0, 0, 0, 1.0f);
 }
 
+void Game::renderFillCircle(const std::string &path, glm::vec2 pos, glm::vec2 size, float alpha)
+{
+    auto texture = Game::getInstance().getAssetStore()->getImmage(path);
+    SDL_FRect dest_rect{pos.x, pos.y, size.x, size.y};
+    SDL_SetTextureAlphaModFloat(texture, alpha);
+    SDL_RenderTexture(Game::getInstance().getRenderer(), texture, NULL, &dest_rect);
+}
+
 void Game::renderTexture(ImageTexture *imageTexture, glm::vec2 pos, glm::vec2 size)
 {
     SDL_FRect dstrect{pos.x, pos.y, size.x, size.y};

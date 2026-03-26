@@ -10,4 +10,5 @@ protected:
 public:
     void init() override {object_type_ = ObjectType::SCREEN;};
     glm::vec2 getScreenPos() const {return screen_pos_;}
+    virtual glm::vec2 getPosition() const {return glm::vec2();}
 };

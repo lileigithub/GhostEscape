@@ -51,6 +51,7 @@ setup_project_dependencies()
 set(SOURCES
     src/affiliates/sprite.cpp
     src/affiliates/sprite_anim.cpp
+    src/affiliates/collider.cpp
     src/core/asset_store.cpp
     src/core/game.cpp
     src/core/main.cpp

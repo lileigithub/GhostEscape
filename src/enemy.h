@@ -2,6 +2,7 @@
 
 #include "core/actor.h"
 #include "affiliates/sprite_anim.h"
+#include "affiliates/collider.h"
 
 class Player;
 
@@ -23,6 +24,7 @@ protected:
     SpriteAnim *normal_anim_ = nullptr;
     SpriteAnim *hurt_anim_ = nullptr;
     SpriteAnim *dead_anim_ = nullptr;
+    Collider *collider_ = nullptr;
 
 public:
     Enemy(ObjectWord *target)
@@ -36,6 +38,8 @@ public:
     void setState(State state) { current_state_ = state; }
     State getState() { return current_state_; }
 
+    bool checkCollision(Collider *other);
     void aimTarget();
     void changeState(State state);
+    void dead();
 };
