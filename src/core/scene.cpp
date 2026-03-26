@@ -42,7 +42,6 @@ void Scene::handleEvents(SDL_Event & event)
             it = children_world_.erase(it);
             child->clean();
             delete child;
-            SDL_LogInfo(SDL_LOG_CATEGORY_APPLICATION, "child deleted");
             continue;
         }
         else if (child->isActive())
