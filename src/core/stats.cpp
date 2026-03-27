@@ -27,7 +27,6 @@ void Stats::takeDamage(int demage)
     {
         current_health_ = 0;
     }
-    SDL_Log("health=====================================: %d", current_health_);
 }
 
 Stats *Stats::createStatsAddChild(Actor *parent, int health, int mana, int demage)

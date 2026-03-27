@@ -22,6 +22,7 @@ private:
     Uint64 FPS_ = 60;
     Uint64 frame_time_ = 0; // 每帧的时间间隔, 单位为纳秒
     float dt_ = 0;          // 每帧的时间间隔, 单位为秒
+    Uint64 last_time_ns_ = 0;
 
     Game() {};
 

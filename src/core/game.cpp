@@ -1,6 +1,6 @@
 #include "game.h"
-#include "../scene_main.h"
 #include "../affiliates/sprite.h"
+#include "../scene_main.h"
 
 void Game::init()
 {
@@ -34,11 +34,13 @@ void Game::init()
 
     SDL_CreateWindowAndRenderer("GhostEscape", static_cast<int>(screen_size_.x),
                                 static_cast<int>(screen_size_.y), SDL_WINDOW_RESIZABLE, &window_, &renderer_);
+                                
     if (!window_ || !renderer_)
     {
         SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "SDL_CreateWindowAndRenderer Error: %s", SDL_GetError());
         return;
     }
+    SDL_SetRenderLogicalPresentation(renderer_, static_cast<int>(screen_size_.x), static_cast<int>(screen_size_.y), SDL_LOGICAL_PRESENTATION_LETTERBOX);
 
     asset_store_ = new AssetStore(renderer_);
 
@@ -74,13 +76,13 @@ void Game::run()
 {
     while (is_running_)
     {
-        auto startTimeNS = SDL_GetTicksNS();
+        last_time_ns_ = SDL_GetTicksNS();
 
         handleEvents();
         update(dt_);
         render();
 
-        auto diff = SDL_GetTicksNS() - startTimeNS;
+        auto diff = SDL_GetTicksNS() - last_time_ns_;
         // 控制帧率
         if (diff < frame_time_)
         {
@@ -103,6 +105,10 @@ void Game::handleEvents()
         {
         case SDL_EVENT_QUIT:
             is_running_ = false;
+            break;
+        case SDL_EVENT_WINDOW_EXPOSED:
+        case SDL_EVENT_WINDOW_MOVED:
+            last_time_ns_ = SDL_GetTicksNS();
             break;
         default:
             current_scene_->handleEvents(event_);
