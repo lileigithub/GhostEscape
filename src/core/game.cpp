@@ -101,6 +101,7 @@ void Game::handleEvents()
     SDL_Event event_;
     if (SDL_PollEvent(&event_))
     {
+        SDL_Log("event type: %d", event_.type);
         switch (event_.type)
         {
         case SDL_EVENT_QUIT:

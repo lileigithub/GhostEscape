@@ -15,9 +15,21 @@ void Scene::setCameraPos(glm::vec2 cameraPos)
     cameraPos_ = glm::clamp(cameraPos, glm::vec2(-30.0f, -30.0f), wordSize_ - game_.getSceneSize() + 30.0f);
 }
 
-void Scene::handleEvents(SDL_Event & event)
+void Scene::handleEvents(SDL_Event &event)
 {
     Object::handleEvents(event);
+    for (auto child : children_world_)
+    {
+        child->handleEvents(event);
+    }
+    for (auto child : children_screen_)
+    {
+        child->handleEvents(event);
+    }
+}
+void Scene::update(float dt)
+{
+    Object::update(dt);
     for (auto it = children_screen_.begin(); it != children_screen_.end();)
     {
         auto child = *it;
@@ -30,7 +42,7 @@ void Scene::handleEvents(SDL_Event & event)
         }
         else if (child->isActive())
         {
-            child->handleEvents(event);
+            child->update(dt);
         }
         it++;
     }
@@ -46,40 +58,34 @@ void Scene::handleEvents(SDL_Event & event)
         }
         else if (child->isActive())
         {
-            child->handleEvents(event);
+            child->update(dt);
         }
         it++;
-    }
-}
-void Scene::update(float dt)
-{
-    Object::update(dt);
-    for (auto child : children_world_) {
-        child->update(dt);
-    }
-    for (auto child : children_screen_) {
-        child->update(dt);
     }
 }
 void Scene::render()
 {
     Object::render();
-    for (auto child : children_world_) {
+    for (auto child : children_world_)
+    {
         child->render();
     }
-    for (auto child : children_screen_) {
+    for (auto child : children_screen_)
+    {
         child->render();
     }
 }
 void Scene::clean()
 {
     Object::clean();
-    for (auto child : children_world_) {
+    for (auto child : children_world_)
+    {
         child->clean();
         delete child;
     }
     children_world_.clear();
-    for (auto child : children_screen_) {
+    for (auto child : children_screen_)
+    {
         child->clean();
         delete child;
     }
