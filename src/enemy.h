@@ -4,8 +4,6 @@
 #include "affiliates/sprite_anim.h"
 #include "affiliates/collider.h"
 
-class Player;
-
 class Enemy : public Actor
 {
 public:
@@ -17,9 +15,8 @@ public:
     };
 
 protected:
-    ObjectWord *target_ = nullptr;
+    Actor *target_ = nullptr;
     State current_state_ = NORMAL;
-    float timer_ = 0.0f;
 
     SpriteAnim *normal_anim_ = nullptr;
     SpriteAnim *hurt_anim_ = nullptr;
@@ -27,18 +24,19 @@ protected:
     Collider *collider_ = nullptr;
 
 public:
-    Enemy(ObjectWord *target)
+    Enemy(Actor *target)
     {
         target_ = target;
     }
 
     void init() override;
     void update(float dt) override;
-    
+    void render() override;
+
     void setState(State state) { current_state_ = state; }
     State getState() { return current_state_; }
 
-    bool checkCollision(Collider *other);
+    bool attack(Actor *other);
     void aimTarget();
     void changeState(State state);
     void dead();

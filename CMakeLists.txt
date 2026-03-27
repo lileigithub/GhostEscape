@@ -59,6 +59,7 @@ set(SOURCES
     src/core/object.cpp
     src/core/scene.cpp
     src/core/actor.cpp
+    src/core/stats.cpp
     src/core/object_affiliate.cpp
     src/player.cpp
     src/scene_main.cpp

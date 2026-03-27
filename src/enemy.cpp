@@ -1,5 +1,6 @@
 #include "enemy.h"
 #include "affiliates/sprite_anim.h"
+#include "core/stats.h"
 
 void Enemy::init()
 {
@@ -12,6 +13,7 @@ void Enemy::init()
     hurt_anim_->setActive(false);
     dead_anim_->setActive(false);
     collider_ = Collider::creatColliderAddChild(this, normal_anim_->getSize());
+    stats_ = Stats::createStatsAddChild(this);
 }
 
 void Enemy::update(float dt)
@@ -19,12 +21,21 @@ void Enemy::update(float dt)
     Actor::update(dt);
     aimTarget();
     Actor::move(dt);
-    checkCollision(target_->getCollider());
+    attack(target_);
 }
 
-bool Enemy::checkCollision(Collider *other)
+void Enemy::render()
 {
-    if (collider_->isColliding(other)) {
+    Actor::render();
+#ifdef DEBUG_MODE
+#endif
+}
+
+bool Enemy::attack(Actor *other)
+{
+    if (collider_->isColliding(other->getCollider()))
+    {
+        stats_->takeDamage(other->getDemage());
         return true;
     }
     return false;
@@ -34,8 +45,14 @@ void Enemy::aimTarget()
 {
     if (target_ != nullptr)
     {
+        SDL_Log("Enemy screen pos : %f, %f", getScreenPos().x, getScreenPos().y);
+        SDL_Log("Enemy world pos: %f, %f", getPosition().x, getPosition().y);
+        SDL_Log("Player screen pos: %f, %f", target_->getScreenPos().x, target_->getScreenPos().y);
+        SDL_Log("Player world pos: %f, %f", target_->getPosition().x, target_->getPosition().y);
         auto direction = target_->getPosition() - this->getPosition();
+        SDL_Log("Direction: %f, %f", direction.x, direction.y);
         direction = glm::normalize(direction);
+        SDL_Log("normalize Direction: %f, %f", direction.x, direction.y);
         this->velocity_ = direction * max_speed_;
     }
 }
