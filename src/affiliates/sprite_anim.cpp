@@ -12,7 +12,7 @@ void SpriteAnim::update(float dt)
             currentFrame_ = 0;
             if (!is_loop_)
             {
-                is_active_ = false;
+                is_finish_ = true;
             }
         }
         frameTimer_ = 0.0f;

@@ -19,23 +19,24 @@ void Enemy::init()
 void Enemy::update(float dt)
 {
     Actor::update(dt);
-    aimTarget();
-    Actor::move(dt);
-    attack(target_);
+    if (target_->getIsActive())
+    {
+        aimTarget();
+        Actor::move(dt);
+        attack(target_);
+    }
 }
 
 void Enemy::render()
 {
     Actor::render();
-#ifdef DEBUG_MODE
-#endif
 }
 
 bool Enemy::attack(Actor *other)
 {
     if (collider_->isColliding(other->getCollider()))
     {
-        stats_->takeDamage(other->getDemage());
+        other->getStats()->takeDamage(stats_->getDemage());
         return true;
     }
     return false;
@@ -83,7 +84,7 @@ void Enemy::dead()
 {
     changeState(State::DEAD);
     // 死亡动画停止后，删除敌人
-    if (!dead_anim_->isActive())
+    if (!dead_anim_->getIsActive())
     {
         setNeedRemove(true);
     }

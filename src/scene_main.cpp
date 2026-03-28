@@ -1,6 +1,7 @@
 #include "scene_main.h"
 #include "player.h"
 #include "Enemy.h"
+#include "world/effect.h"
 
 void SceneMain::init()
 {
@@ -11,7 +12,7 @@ void SceneMain::init()
     Enemy *enemy = new Enemy(player_);
     enemy->init();
 
-    addChild(enemy);
+    Effect::createEffectAddChild(this, "assets/effect/184_3_.png", enemy->getPosition(), 1.0f, enemy);
     addChild(player_);// 让玩家比敌人后渲染
 }
 

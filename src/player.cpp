@@ -2,6 +2,7 @@
 #include "affiliates/sprite_anim.h"
 #include "core/scene.h"
 #include "core/stats.h"
+#include "world/effect.h"
 
 void Player::init()
 {
@@ -12,6 +13,7 @@ void Player::init()
     moveAnim_ = Sprite::createSpriteAddChild<SpriteAnim>(this, "assets/sprite/ghost-move.png", 2.0f);
     collider_ = Collider::creatColliderAddChild(this, idleAnim_->getSize() / 2.0f);
     stats_ = Stats::createStatsAddChild(this);
+    
 };
 void Player::handleEvents(SDL_Event &event)
 {
@@ -23,6 +25,7 @@ void Player::update(float dt)
     keyBoardControl();
     Actor::move(dt);
     changeState();
+    whenDead();
 }
 void Player::render()
 {
@@ -96,5 +99,15 @@ void Player::changeState()
             idleAnim_->setFrameTimer(moveAnim_->getFrameTimer());
             idleAnim_->setCurrentFrame(moveAnim_->getCurrentFrame());
         }
+    }
+}
+
+void Player::whenDead()
+{
+    if (!stats_->getIsAlive()) {
+        setActive(false);
+        auto deadEffect = Effect::createEffectAddChild(nullptr, "assets/effect/1764.png", this->getPosition(), 2.0f);
+        game_.getCurrentScene()->safeAddChild(deadEffect);
+        deadEffect = nullptr;
     }
 }

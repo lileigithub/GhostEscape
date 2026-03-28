@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include "core/actor.h"
-
+class Effect;
 class SpriteAnim;
 
 class Player : public Actor
@@ -20,4 +20,5 @@ public:
     virtual void clean();
     void keyBoardControl();
     void changeState();
+    void whenDead();
 };

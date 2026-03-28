@@ -15,6 +15,7 @@ void Stats::update(float dt)
 }
 void Stats::takeDamage(int demage)
 {
+    if (is_alive_ == false) return;
     if (invicible_timer_ > 0)
         return;
     if (demage < 0)
@@ -23,9 +24,11 @@ void Stats::takeDamage(int demage)
     }
     current_health_ -= demage;
     is_invicible_ = true;
-    if (current_health_ < 0)
+    SDL_Log("health: %d", current_health_);
+    if (current_health_ <= 0)
     {
         current_health_ = 0;
+        is_alive_ = false;
     }
 }
 

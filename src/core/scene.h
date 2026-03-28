@@ -13,7 +13,7 @@ protected:
     glm::vec2 wordSize_ = glm::vec2();
     glm::vec2 cameraPos_ = glm::vec2();
     //为了分层渲染，所以给Object分类
-    std::vector<ObjectWord *> children_world_;
+    std::vector<ObjectWorld *> children_world_;
     std::vector<ObjectScreen *> children_screen_;
 
 public:

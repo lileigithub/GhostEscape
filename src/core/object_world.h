@@ -2,7 +2,7 @@
 #include "../affiliates/collider.h"
 #include "object_screen.h"
 
-class ObjectWord : public ObjectScreen
+class ObjectWorld : public ObjectScreen
 {
 protected:
     Collider *collider_ = nullptr;

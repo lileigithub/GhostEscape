@@ -16,6 +16,7 @@ public:
     void update(float dt) override;
 
     void setImageTexture(ImageTexture *imageTexture) override;
+    void setLoop(bool loop) override { is_loop_ = loop; }
 
     int getCurrentFrame() { return currentFrame_; }
     void setCurrentFrame(int frame) { currentFrame_ = frame; }
@@ -25,6 +26,4 @@ public:
     void setFPS(int fps) { FPS_ = fps; }
     float getFrameTimer() { return frameTimer_; }
     void setFrameTimer(float timer) { frameTimer_ = timer; }
-    void setLoop(bool loop) { is_loop_ = loop; }
-
 };

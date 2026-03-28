@@ -10,12 +10,7 @@ ImageTexture::ImageTexture(const std::string &path)
 void Sprite::render()
 {
     ObjectAffiliate::render();
-    if (imageTexture_ == nullptr)
-    {
-        SDL_LogInfo(SDL_LOG_CATEGORY_APPLICATION, "Texture is null");
-        return;
-    }
-    if (parent_ == nullptr)
+    if (imageTexture_ == nullptr || parent_ == nullptr || is_finish_ )
     {
         return;
     }

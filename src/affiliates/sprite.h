@@ -20,24 +20,30 @@ class Sprite : public ObjectAffiliate
 {
 protected:
     ImageTexture *imageTexture_;
+    bool is_finish_ = false;
 
 public:
     void render() override;
     void clean() override;
     virtual void setImageTexture(ImageTexture *imageTexture);
-    template <typename T> static T *createSpriteAddChild(ObjectScreen *parent, const std::string &path, float scale, Anchor anchor = Anchor::CENTER);
-    void setFlip(SDL_FlipMode flip) {imageTexture_->flip_ = flip;};
+    template <typename T>
+    static T *createSpriteAddChild(ObjectScreen *parent, const std::string &path, float scale, bool isLoop = true, Anchor anchor = Anchor::CENTER);
+    void setFlip(SDL_FlipMode flip) { imageTexture_->flip_ = flip; }
+    virtual void setLoop(bool) {};
+    bool getIsFinish() { return is_finish_; }
 };
 
-template <typename T> T *Sprite::createSpriteAddChild(ObjectScreen *parent, const std::string &path, float scale, Anchor anchor)
+template <typename T>
+T *Sprite::createSpriteAddChild(ObjectScreen *parent, const std::string &path, float scale, bool isLoop, Anchor anchor)
 {
     ImageTexture *imageTexture = new ImageTexture(path);
     T *sprite = new T();
-    sprite -> init();
+    sprite->init();
     sprite->setImageTexture(imageTexture);
     sprite->setAnchor(anchor);
     sprite->setScale(scale);
     sprite->setParent(parent);
+    sprite->setLoop(isLoop);
     parent->addChild(sprite);
     return sprite;
 }

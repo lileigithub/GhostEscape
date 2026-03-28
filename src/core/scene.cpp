@@ -40,7 +40,7 @@ void Scene::update(float dt)
             delete child;
             continue;
         }
-        else if (child->isActive())
+        else if (child->getIsActive())
         {
             child->update(dt);
         }
@@ -56,7 +56,7 @@ void Scene::update(float dt)
             delete child;
             continue;
         }
-        else if (child->isActive())
+        else if (child->getIsActive())
         {
             child->update(dt);
         }
@@ -68,11 +68,17 @@ void Scene::render()
     Object::render();
     for (auto child : children_world_)
     {
-        child->render();
+        if (child->getIsActive())
+        {
+            child->render();
+        }
     }
     for (auto child : children_screen_)
     {
-        child->render();
+        if (child->getIsActive())
+        {
+            child->render();
+        }
     }
 }
 void Scene::clean()
@@ -82,12 +88,14 @@ void Scene::clean()
     {
         child->clean();
         delete child;
+        child = nullptr;
     }
     children_world_.clear();
     for (auto child : children_screen_)
     {
         child->clean();
         delete child;
+        child = nullptr;
     }
     children_screen_.clear();
 }
@@ -101,7 +109,7 @@ void Scene::addChild(Object *child)
             children_screen_.push_back(dynamic_cast<ObjectScreen *>(child));
             break;
         case ObjectType::WORLD:
-            children_world_.push_back(dynamic_cast<ObjectWord *>(child));
+            children_world_.push_back(dynamic_cast<ObjectWorld *>(child));
             break;
         default:
             children_.push_back(child);
