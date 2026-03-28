@@ -4,6 +4,7 @@
 #include "affiliates/sprite_anim.h"
 #include "affiliates/collider.h"
 
+class Player;
 class Enemy : public Actor
 {
 public:
@@ -15,7 +16,7 @@ public:
     };
 
 protected:
-    Actor *target_ = nullptr;
+    Player *target_ = nullptr;
     State current_state_ = NORMAL;
 
     SpriteAnim *normal_anim_ = nullptr;
@@ -24,7 +25,7 @@ protected:
     Collider *collider_ = nullptr;
 
 public:
-    Enemy(Actor *target)
+    Enemy(Player *target)
     {
         target_ = target;
     }

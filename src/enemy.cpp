@@ -1,11 +1,11 @@
 #include "enemy.h"
 #include "affiliates/sprite_anim.h"
 #include "core/stats.h"
+#include "player.h"
 
 void Enemy::init()
 {
     Actor::init();
-    setPosition(target_->getPosition() + glm::vec2(200.0f, 200.0f));
     normal_anim_ = Sprite::createSpriteAddChild<SpriteAnim>(this, "assets/sprite/ghost-Sheet.png", 2.0f);
     hurt_anim_ = Sprite::createSpriteAddChild<SpriteAnim>(this, "assets/sprite/ghostHurt-Sheet.png", 2.0f);
     dead_anim_ = Sprite::createSpriteAddChild<SpriteAnim>(this, "assets/sprite/ghostDead-Sheet.png", 2.0f);

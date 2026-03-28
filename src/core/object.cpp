@@ -68,6 +68,7 @@ void Object::addChild(Object *child)
 {
     if (child != nullptr)
     {
+        SDL_Log("Add to Object");
         children_.push_back(child);
     }
 }

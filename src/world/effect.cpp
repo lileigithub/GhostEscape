@@ -16,6 +16,7 @@ Effect *Effect::createEffectAddChild(Object *parent, const std::string &path, gl
     effect->setPosition(pos);
     if (parent != nullptr)
     {
+        SDL_Log("effect add scene");
         parent->addChild(effect);
     }
     return effect;

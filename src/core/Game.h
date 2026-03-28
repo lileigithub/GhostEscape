@@ -5,6 +5,7 @@
 #include <SDL3_mixer/SDL_mixer.h>
 #include <SDL3_ttf/SDL_ttf.h>
 #include <glm/glm.hpp>
+#include <random>
 #include "asset_store.h"
 
 class Scene;
@@ -23,6 +24,7 @@ private:
     Uint64 frame_time_ = 0; // 每帧的时间间隔, 单位为纳秒
     float dt_ = 0;          // 每帧的时间间隔, 单位为秒
     Uint64 last_time_ns_ = 0;
+    std::mt19937 gen = std::mt19937(std::random_device{}());
 
     Game() {};
 
@@ -60,4 +62,6 @@ public:
     void drawRect(SDL_FRect rect, SDL_FColor color);
     void renderFillCircle(const std::string &texture_name, glm::vec2 pos, glm::vec2 size, float alpha);
     void renderTexture(ImageTexture * imageTexture, glm::vec2 pos, glm::vec2 size);
+    float randomFloat(float min, float max) { return std::uniform_real_distribution<float>(min, max)(gen); }
+    glm::vec2 randomVec2(glm::vec2 min, glm::vec2 max) { return glm::vec2(randomFloat(min.x, max.x), randomFloat(min.y, max.y)); }
 };

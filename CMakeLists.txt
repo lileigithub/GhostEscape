@@ -65,6 +65,7 @@ set(SOURCES
     src/player.cpp
     src/scene_main.cpp
     src/enemy.cpp
+    src/spawner.cpp
 )
 
 # Windows平台添加资源文件

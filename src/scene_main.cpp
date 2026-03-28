@@ -2,6 +2,7 @@
 #include "player.h"
 #include "Enemy.h"
 #include "world/effect.h"
+#include "spawner.h"
 
 void SceneMain::init()
 {
@@ -9,10 +10,10 @@ void SceneMain::init()
     setWordSize(game_.getSceneSize() * 3.0f);
     player_ = new Player();
     player_->init();
-    Enemy *enemy = new Enemy(player_);
-    enemy->init();
-
-    Effect::createEffectAddChild(this, "assets/effect/184_3_.png", enemy->getPosition(), 1.0f, enemy);
+    spawner_ = new Spawner();
+    spawner_->init();
+    spawner_->setPlayer(player_);
+    addChild(spawner_);
     addChild(player_);// 让玩家比敌人后渲染
 }
 

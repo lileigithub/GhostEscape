@@ -3,11 +3,12 @@
 #include "core/scene.h"
 
 class Player;
-
+class Spawner;
 class SceneMain : public Scene
 {
-private:
+protected:
     Player *player_ = nullptr;
+    Spawner *spawner_ = nullptr;
 
 public:
     void init() override;

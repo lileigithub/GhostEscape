@@ -20,7 +20,6 @@ void Sprite::render()
 void Sprite::clean()
 {
     ObjectAffiliate::clean();
-    SDL_DestroyTexture(imageTexture_->texture);
 }
 
 void Sprite::setImageTexture(ImageTexture *imageTexture)

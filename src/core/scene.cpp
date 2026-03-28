@@ -109,6 +109,7 @@ void Scene::addChild(Object *child)
             children_screen_.push_back(dynamic_cast<ObjectScreen *>(child));
             break;
         case ObjectType::WORLD:
+        SDL_Log("Add to World");
             children_world_.push_back(dynamic_cast<ObjectWorld *>(child));
             break;
         default:
