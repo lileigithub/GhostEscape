@@ -44,6 +44,8 @@ T *Sprite::createSpriteAddChild(ObjectScreen *parent, const std::string &path, f
     sprite->setScale(scale);
     sprite->setParent(parent);
     sprite->setLoop(isLoop);
-    parent->addChild(sprite);
+    if (parent != nullptr) {
+        parent->addChild(sprite);
+    }
     return sprite;
 }

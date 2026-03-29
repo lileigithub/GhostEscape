@@ -34,7 +34,8 @@ void Game::init()
 
     SDL_CreateWindowAndRenderer("GhostEscape", static_cast<int>(screen_size_.x),
                                 static_cast<int>(screen_size_.y), SDL_WINDOW_RESIZABLE, &window_, &renderer_);
-                                
+    SDL_HideCursor();
+    
     if (!window_ || !renderer_)
     {
         SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "SDL_CreateWindowAndRenderer Error: %s", SDL_GetError());
@@ -92,6 +93,11 @@ void Game::run()
         else
         {
             dt_ = diff / 1.0e9f;
+        }
+        if (dt_ > 0.1f)
+        {
+            SDL_LogInfo(SDL_LOG_CATEGORY_APPLICATION, "Warning: Large dt detected: %f seconds.", dt_);
+            dt_ = 0.1f; // 防止dt过大导致游戏逻辑异常，比如玩家瞬移等
         }
     }
 }

@@ -4,11 +4,14 @@
 
 class Player;
 class Spawner;
+class UI_Mouse;
+
 class SceneMain : public Scene
 {
 protected:
     Player *player_ = nullptr;
     Spawner *spawner_ = nullptr;
+    UI_Mouse *ui_mouse_ = nullptr;
 
 public:
     void init() override;

@@ -1,9 +1,9 @@
 #include "scene_main.h"
-#include "player.h"
 #include "Enemy.h"
-#include "world/effect.h"
+#include "player.h"
+#include "screen/ui_mouse.h"
 #include "spawner.h"
-
+#include "world/effect.h"
 void SceneMain::init()
 {
     Scene::init();
@@ -14,7 +14,8 @@ void SceneMain::init()
     spawner_->init();
     spawner_->setPlayer(player_);
     addChild(spawner_);
-    addChild(player_);// 让玩家比敌人后渲染
+    addChild(player_); // 让玩家比敌人后渲染
+    ui_mouse_ = UI_Mouse::createUiMouseAddChild(this, "assets/UI/29.png", "assets/UI/30.png");
 }
 
 void SceneMain::handleEvents(SDL_Event &event)
