@@ -53,6 +53,7 @@ set(SOURCES
     src/affiliates/sprite_anim.cpp
     src/affiliates/collider.cpp
     src/world/effect.cpp
+    src/world/spell.cpp
     src/screen/ui_mouse.cpp
     src/core/asset_store.cpp
     src/core/game.cpp

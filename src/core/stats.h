@@ -1,8 +1,8 @@
 #pragma once
-#include "object.h"
+#include "object_world.h"
 
 class Actor;
-class Stats : public Object
+class Stats : public ObjectWorld
 {
 
 protected:
@@ -21,7 +21,7 @@ public:
 
     void update(float dt) override;
 
-    void takeDamage(int demage);
+    void takeDamage(int demage) override;
 
     static Stats *createStatsAddChild(Actor *parent, int health = 100, int mana = 100, int demage = 50);
     void setCurrentHealth(int health) { current_health_ = health; }
@@ -40,5 +40,6 @@ public:
     float getInvicibleTimer() { return invicible_timer_; }
     void setIsAlive(bool alive) { is_alive_ = alive; }
     bool getIsAlive() { return is_alive_; }
+    bool getIsInvicible() { return is_invicible_; }
 
 };

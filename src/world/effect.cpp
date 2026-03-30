@@ -16,7 +16,6 @@ Effect *Effect::createEffectAddChild(Object *parent, const std::string &path, gl
     effect->setPosition(pos);
     if (parent != nullptr)
     {
-        SDL_Log("effect add scene");
         parent->addChild(effect);
     }
     return effect;
@@ -29,7 +28,7 @@ void Effect::whenFinish()
         need_remove_ = true;
         if (nextObject_)
         {
-            game_.getCurrentScene()->safeAddChild(nextObject_);
+            game_.getCurrentScene()->addChild(nextObject_);
             nextObject_ = nullptr;
         }
     }

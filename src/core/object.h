@@ -8,28 +8,25 @@
 
 class Object
 {
+    std::vector<Object *> need_add_children_;
 protected:
     Game &game_ = Game::getInstance();
     ObjectType object_type_ = ObjectType::NONE;
     std::vector<Object *> children_;
-    std::vector<Object *> need_add_children_;
     bool is_active_ = true;
     bool need_remove_ = false;
-
 public:
     Object() = default;
     virtual ~Object() = default; // 所有的类不在构造函数和析构函数中做任何事
 
-    virtual void init();
+    virtual void init(){};
     virtual void handleEvents(SDL_Event &);
     virtual void update(float);
     virtual void render();
     virtual void clean();
 
+    
     virtual void addChild(Object *child);
-    void safeAddChild(Object *child) { 
-        need_add_children_.push_back(child); 
-    }
     virtual void removeChild(Object *child);
     
     ObjectType getObjectType() { return object_type_; }

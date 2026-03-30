@@ -3,7 +3,7 @@
 #include "../core/object_screen.h"
 #include "../core/object_affiliate.h"
 
-class UI_Mouse : ObjectScreen
+class UI_Mouse : public ObjectScreen
 {
 protected:
     Sprite *sprite1_ = nullptr;
@@ -11,6 +11,6 @@ protected:
     SDL_MouseButtonFlags mouseButtonFlags_;
     float timer_ = 0.0f;
 public:
-    static UI_Mouse * createUiMouseAddChild(Object * parent, const std::string &path1, const std::string &path2, float scale = 1.0f, ObjectAffiliate::Anchor anchor = ObjectAffiliate::Anchor::CENTER);
+    static UI_Mouse * createUiMouseAddChild(Object * parent, const std::string &path1, const std::string &path2, float scale = 1.0f, Anchor anchor = Anchor::CENTER);
     void update(float dt) override;
 };

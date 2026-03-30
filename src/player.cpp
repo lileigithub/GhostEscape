@@ -107,7 +107,7 @@ void Player::whenDead()
     if (!stats_->getIsAlive()) {
         setActive(false);
         auto deadEffect = Effect::createEffectAddChild(nullptr, "assets/effect/1764.png", this->getPosition(), 2.0f);
-        game_.getCurrentScene()->safeAddChild(deadEffect);
+        game_.getCurrentScene()->addChild(deadEffect);
         deadEffect = nullptr;
     }
 }

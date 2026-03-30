@@ -1,9 +1,5 @@
 #include "object.h"
 
-void Object::init()
-{
-}
-
 void Object::handleEvents(SDL_Event &event)
 {
     for (auto &child : children_)
@@ -68,8 +64,7 @@ void Object::addChild(Object *child)
 {
     if (child != nullptr)
     {
-        SDL_Log("Add to Object");
-        children_.push_back(child);
+        need_add_children_.push_back(child); 
     }
 }
 

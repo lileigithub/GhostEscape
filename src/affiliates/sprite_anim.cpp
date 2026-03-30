@@ -12,7 +12,6 @@ void SpriteAnim::update(float dt)
             currentFrame_ = 0;
             if (!is_loop_)
             {
-                SDL_Log("Animation finish");
                 is_finish_ = true;
             }
         }
@@ -35,7 +34,6 @@ void SpriteAnim::setImageTexture(ImageTexture *imageTexture)
     }
     imageTexture_ = imageTexture;
     totalFrame_ = static_cast<int>(imageTexture_->src_rect.w / imageTexture_->src_rect.h);
-    SDL_Log("w : %f, h: %f, total frame: %d", imageTexture_->src_rect.w, imageTexture_->src_rect.h, totalFrame_);
     imageTexture_->src_rect.w = imageTexture_->src_rect.h;
     setSize(glm::vec2(imageTexture_->src_rect.w, imageTexture_->src_rect.h));
 }

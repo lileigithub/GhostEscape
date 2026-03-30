@@ -14,11 +14,19 @@ void Enemy::init()
     dead_anim_->setActive(false);
     collider_ = Collider::creatColliderAddChild(this, normal_anim_->getSize());
     stats_ = Stats::createStatsAddChild(this);
+    object_type_ = ObjectType::ENEMY;
 }
 
 void Enemy::update(float dt)
 {
     Actor::update(dt);
+    if (stats_->getCurrentHealth() <=0) {
+        dead();
+    } else if (stats_->getIsInvicible()) {
+        changeState(State::HURT);
+    } else {
+        changeState(State::NORMAL);
+    }
     if (target_->getIsActive())
     {
         aimTarget();
@@ -54,8 +62,6 @@ void Enemy::aimTarget()
 
 void Enemy::changeState(State state)
 {
-    if (state == NULL)
-        return;
     if (current_state_ != state)
     {
         current_state_ = state;
@@ -84,8 +90,13 @@ void Enemy::dead()
 {
     changeState(State::DEAD);
     // 死亡动画停止后，删除敌人
-    if (!dead_anim_->getIsActive())
+    if (dead_anim_->getIsFinish())
     {
         setNeedRemove(true);
     }
+}
+
+void Enemy::takeDamage(int damage)
+{
+    stats_->takeDamage(damage);
 }

@@ -1,6 +1,6 @@
 #include "ui_mouse.h"
 
-UI_Mouse *UI_Mouse::createUiMouseAddChild(Object *parent, const std::string &path1, const std::string &path2, float scale, ObjectAffiliate::Anchor anchor)
+UI_Mouse *UI_Mouse::createUiMouseAddChild(Object *parent, const std::string &path1, const std::string &path2, float scale, Anchor anchor)
 {
     UI_Mouse *ui_mouse = new UI_Mouse();
     ui_mouse->init();

@@ -9,10 +9,11 @@
 
 class Scene : public Object
 {
+    std::vector<Object *> sceen_need_add_children_;
 protected:
     glm::vec2 wordSize_ = glm::vec2();
     glm::vec2 cameraPos_ = glm::vec2();
-    //为了分层渲染，所以给Object分类
+    // 为了分层渲染，所以给Object分类
     std::vector<ObjectWorld *> children_world_;
     std::vector<ObjectScreen *> children_screen_;
 
@@ -31,4 +32,6 @@ public:
     void setWordSize(glm::vec2 wordSize) { wordSize_ = wordSize; }
     glm::vec2 wordPosToScreenPos(glm::vec2 wordPos);
     glm::vec2 screenPosToWorldPos(glm::vec2 screenPos);
+    std::vector<ObjectWorld *> *getChildrenWorld() { return &children_world_; }
+    std::vector<ObjectScreen *> *getChildrenScreen() { return &children_screen_; }
 };

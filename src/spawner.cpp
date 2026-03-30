@@ -21,7 +21,6 @@ void Spawner::update(float dt)
             Enemy *enemy = new Enemy(player_);
             enemy->init();
             enemy->setPosition(pos);
-            SDL_Log("spawn enemy at %f %f", pos.x, pos.y);
             Effect::createEffectAddChild(game_.getCurrentScene(), "assets/effect/184_3_.png", enemy->getPosition(), 1.0f, enemy);
         }
     }

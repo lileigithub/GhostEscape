@@ -22,7 +22,6 @@ protected:
     SpriteAnim *normal_anim_ = nullptr;
     SpriteAnim *hurt_anim_ = nullptr;
     SpriteAnim *dead_anim_ = nullptr;
-    Collider *collider_ = nullptr;
 
 public:
     Enemy(Player *target)
@@ -41,4 +40,5 @@ public:
     void aimTarget();
     void changeState(State state);
     void dead();
+    void takeDamage(int) override;
 };

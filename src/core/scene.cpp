@@ -30,6 +30,27 @@ void Scene::handleEvents(SDL_Event &event)
 void Scene::update(float dt)
 {
     Object::update(dt);
+
+    //安全add
+    for (auto &child : sceen_need_add_children_)
+    {
+        switch (child->getObjectType())
+        {
+        case ObjectType::SCREEN:
+            children_screen_.push_back(dynamic_cast<ObjectScreen *>(child));
+            break;
+        case ObjectType::WORLD:
+        case ObjectType::ENEMY:
+            children_world_.push_back(dynamic_cast<ObjectWorld *>(child));
+            break;
+        default:
+            children_.push_back(child);
+            break;
+        }
+    }
+    sceen_need_add_children_.clear();
+
+    //安全移除
     for (auto it = children_screen_.begin(); it != children_screen_.end();)
     {
         auto child = *it;
@@ -103,19 +124,7 @@ void Scene::addChild(Object *child)
 {
     if (child != nullptr)
     {
-        switch (child->getObjectType())
-        {
-        case ObjectType::SCREEN:
-            children_screen_.push_back(dynamic_cast<ObjectScreen *>(child));
-            break;
-        case ObjectType::WORLD:
-        SDL_Log("Add to World");
-            children_world_.push_back(dynamic_cast<ObjectWorld *>(child));
-            break;
-        default:
-            children_.push_back(child);
-            break;
-        }
+        sceen_need_add_children_.push_back(child);
     }
 }
 void Scene::removeChild(Object *child)
@@ -128,6 +137,7 @@ void Scene::removeChild(Object *child)
             children_screen_.erase(std::remove(children_screen_.begin(), children_screen_.end(), child), children_screen_.end());
             break;
         case ObjectType::WORLD:
+        case ObjectType::ENEMY:
             children_world_.erase(std::remove(children_world_.begin(), children_world_.end(), child), children_world_.end());
             break;
         default:

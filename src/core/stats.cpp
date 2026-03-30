@@ -4,7 +4,7 @@ void Stats::update(float dt)
 {
     if (is_invicible_)
     {
-        if (invicible_timer_ > invicible_time_)
+        if (invicible_timer_ >= invicible_time_)
         {
             invicible_timer_ = 0.0f;
             is_invicible_ = false;
@@ -16,7 +16,7 @@ void Stats::update(float dt)
 void Stats::takeDamage(int demage)
 {
     if (is_alive_ == false) return;
-    if (invicible_timer_ > 0)
+    if (invicible_timer_ > FLT_EPSILON)
         return;
     if (demage < 0)
     {

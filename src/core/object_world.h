@@ -13,6 +13,7 @@ private:
 public:
     void init() override { object_type_ = ObjectType::WORLD; };
     void update(float dt) override;
+    virtual void takeDamage(int) {};
 
     void setPosition(const glm::vec2 &position);
     void setScreenPos(const glm::vec2 &screenPos);
