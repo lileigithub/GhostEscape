@@ -26,8 +26,11 @@ void SceneMain::handleEvents(SDL_Event &event)
     {
         if (event.button.button == SDL_BUTTON_LEFT)
         {
-            auto pos = ui_mouse_->getScreenPos() + getCameraPos();
-            Spell::createSpellAddChild(ui_mouse_, "assets/effect/Thunderstrike w blur.png", pos, 50, 5, 9, 3.0f);
+            // 施放技能
+            if (player_->getIsActive()) {
+                auto pos = ui_mouse_->getScreenPos() + getCameraPos();
+                Spell::createSpellAddChild(ui_mouse_, "assets/effect/Thunderstrike w blur.png", pos, 50, 5, 9, 3.0f);
+            }
         }
     }
 }
