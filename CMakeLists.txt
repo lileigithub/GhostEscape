@@ -52,6 +52,7 @@ set(SOURCES
     src/affiliates/sprite.cpp
     src/affiliates/sprite_anim.cpp
     src/affiliates/collider.cpp
+    src/affiliates/affiliate_bar.cpp
     src/world/effect.cpp
     src/world/spell.cpp
     src/screen/ui_mouse.cpp

@@ -1,8 +1,8 @@
 #include "enemy.h"
+#include "affiliates/affiliate_bar.h"
 #include "affiliates/sprite_anim.h"
 #include "core/stats.h"
 #include "player.h"
-
 void Enemy::init()
 {
     Actor::init();
@@ -15,16 +15,23 @@ void Enemy::init()
     collider_ = Collider::creatColliderAddChild(this, normal_anim_->getSize());
     stats_ = Stats::createStatsAddChild(this);
     object_type_ = ObjectType::ENEMY;
+    health_bar_ = AffiliateBar::createAffiliateBarAddChild(this, {normal_anim_->getSize().x, 10}, Anchor::BOTTOM_CENTER);
+    health_bar_->setOffset(health_bar_->getOffset() + glm::vec2{0, normal_anim_->getSize().y / 2});
 }
 
 void Enemy::update(float dt)
 {
     Actor::update(dt);
-    if (stats_->getCurrentHealth() <=0) {
+    if (stats_->getCurrentHealth() <= 0)
+    {
         dead();
-    } else if (stats_->getIsInvicible()) {
+    }
+    else if (stats_->getIsInvicible())
+    {
         changeState(State::HURT);
-    } else {
+    }
+    else
+    {
         changeState(State::NORMAL);
     }
     if (target_->getIsActive())
