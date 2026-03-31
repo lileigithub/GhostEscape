@@ -3,11 +3,13 @@
 #include "core/actor.h"
 class Effect;
 class SpriteAnim;
+class WeaponThunder;
 
 class Player : public Actor
 {
     SpriteAnim *idleAnim_;
     SpriteAnim *moveAnim_;
+    WeaponThunder *weapon_;
 
 public:
     Player() = default;

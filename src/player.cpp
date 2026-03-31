@@ -3,6 +3,7 @@
 #include "core/scene.h"
 #include "core/stats.h"
 #include "world/effect.h"
+#include "weapon_thunder.h"
 
 void Player::init()
 {
@@ -13,7 +14,7 @@ void Player::init()
     moveAnim_ = Sprite::createSpriteAddChild<SpriteAnim>(this, "assets/sprite/ghost-move.png", 2.0f);
     collider_ = Collider::creatColliderAddChild(this, idleAnim_->getSize() / 2.0f);
     stats_ = Stats::createStatsAddChild(this);
-    
+    weapon_ = WeaponThunder::createWeaponThunderAddChild(this, 5.0f, 20);
 };
 void Player::handleEvents(SDL_Event &event)
 {

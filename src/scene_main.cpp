@@ -22,17 +22,6 @@ void SceneMain::init()
 void SceneMain::handleEvents(SDL_Event &event)
 {
     Scene::handleEvents(event);
-    if (event.type == SDL_EVENT_MOUSE_BUTTON_DOWN)
-    {
-        if (event.button.button == SDL_BUTTON_LEFT)
-        {
-            // 施放技能
-            if (player_->getIsActive()) {
-                auto pos = ui_mouse_->getScreenPos() + getCameraPos();
-                Spell::createSpellAddChild(ui_mouse_, "assets/effect/Thunderstrike w blur.png", pos, 50, 5, 9, 3.0f);
-            }
-        }
-    }
 }
 
 void SceneMain::update(float dt)

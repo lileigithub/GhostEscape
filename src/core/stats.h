@@ -23,6 +23,17 @@ public:
 
     void takeDamage(int demage) override;
 
+    bool canUseMana(int manaCost) {
+        return current_mana_ >= manaCost;
+    }
+
+    void useMana(int manaCost) {
+        current_mana_ -= manaCost;
+        if (current_mana_ < 0) {
+            current_mana_ = 0;
+        }
+    }
+
     static Stats *createStatsAddChild(Actor *parent, int health = 100, int mana = 100, int demage = 50);
     void setCurrentHealth(int health) { current_health_ = health; }
     int getCurrentHealth() { return current_health_; }

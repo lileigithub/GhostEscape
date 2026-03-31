@@ -24,7 +24,6 @@ void Stats::takeDamage(int demage)
     }
     current_health_ -= demage;
     is_invicible_ = true;
-    SDL_Log("health: %d", current_health_);
     if (current_health_ <= 0)
     {
         current_health_ = 0;

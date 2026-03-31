@@ -63,11 +63,13 @@ set(SOURCES
     src/core/scene.cpp
     src/core/actor.cpp
     src/core/stats.cpp
+    src/core/weapon.cpp
     src/core/object_affiliate.cpp
     src/player.cpp
     src/scene_main.cpp
     src/enemy.cpp
     src/spawner.cpp
+    src/weapon_thunder.cpp
 )
 
 # Windows平台添加资源文件

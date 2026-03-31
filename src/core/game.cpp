@@ -136,6 +136,11 @@ void Game::render()
     SDL_RenderPresent(renderer_);
 }
 
+glm::vec2 Game::getMousePos()
+{
+    return current_scene_->getMousePos();
+}
+
 void Game::drawGrid(const glm::vec2 left_top_pos, const glm::vec2 right_bottom_pos, glm::vec2 cell_size, SDL_FColor color)
 {
     SDL_SetRenderDrawColorFloat(renderer_, color.r, color.g, color.b, color.a);

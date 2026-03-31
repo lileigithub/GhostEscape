@@ -1,4 +1,5 @@
 #include "scene.h"
+#include "../screen/ui_mouse.h"
 
 glm::vec2 Scene::wordPosToScreenPos(glm::vec2 wordPos)
 {
@@ -8,6 +9,11 @@ glm::vec2 Scene::wordPosToScreenPos(glm::vec2 wordPos)
 glm::vec2 Scene::screenPosToWorldPos(glm::vec2 screenPos)
 {
     return screenPos + cameraPos_;
+}
+
+glm::vec2 Scene::getMousePos()
+{
+    return ui_mouse_->getScreenPos() + cameraPos_;
 }
 
 void Scene::setCameraPos(glm::vec2 cameraPos)

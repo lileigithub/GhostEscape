@@ -58,6 +58,8 @@ public:
     SDL_Renderer *getRenderer() const { return renderer_; }
     AssetStore *getAssetStore() const { return asset_store_; }
 
+    glm::vec2 getMousePos();
+
     void drawGrid(glm::vec2 left_top, glm::vec2 right_bottom, glm::vec2 cell_size, SDL_FColor color);
     void drawRect(SDL_FRect rect, SDL_FColor color);
     void renderFillCircle(const std::string &texture_name, glm::vec2 pos, glm::vec2 size, float alpha);
