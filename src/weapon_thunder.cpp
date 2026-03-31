@@ -20,7 +20,6 @@ void WeaponThunder::handleEvents(SDL_Event &event)
         {
             // 施放技能
             auto pos = game_.getMousePos();
-            parent_->getStats()->useMana(cost_mana_);
             auto spell = Spell::createSpellAddChild(nullptr, "assets/effect/Thunderstrike w blur.png", pos, 50, 5, 9, 3.0f);
             attack(spell);
         }

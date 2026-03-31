@@ -12,7 +12,6 @@ void Weapon::update(float dt)
 void Weapon::attack(Spell *spell)
 {
     if (spell != nullptr && parent_ != nullptr) {
-        SDL_Log("cooldown_timer_: %f, mana: %d", cooldown_timer_, parent_->getStats()->getCurrentMana());
         cooldown_timer_ = 0.0f;
         parent_->getStats()->useMana(cost_mana_);
         game_.getCurrentScene()->addChild(spell);
