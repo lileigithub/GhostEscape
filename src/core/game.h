@@ -63,7 +63,7 @@ public:
     void drawGrid(glm::vec2 left_top, glm::vec2 right_bottom, glm::vec2 cell_size, SDL_FColor color);
     void drawRect(SDL_FRect rect, SDL_FColor color);
     void renderFillCircle(const std::string &texture_name, glm::vec2 pos, glm::vec2 size, float alpha);
-    void renderTexture(ImageTexture * imageTexture, glm::vec2 pos, glm::vec2 size);
+    void renderTexture(ImageTexture * imageTexture, glm::vec2 pos, glm::vec2 size, glm::vec2 mask = glm::vec2(1.0f, 1.0f));
     float randomFloat(float min, float max) { return std::uniform_real_distribution<float>(min, max)(gen); }
     glm::vec2 randomVec2(glm::vec2 min, glm::vec2 max) { return glm::vec2(randomFloat(min.x, max.x), randomFloat(min.y, max.y)); }
 };

@@ -103,7 +103,7 @@ void Enemy::dead()
     }
 }
 
-void Enemy::takeDamage(int damage)
+void Enemy::takeDamage(float damage)
 {
     stats_->takeDamage(damage);
 }

@@ -21,6 +21,7 @@ class Sprite : public ObjectAffiliate
 protected:
     ImageTexture *imageTexture_;
     bool is_finish_ = false;
+    glm::vec2 percent_ = glm::vec2(1.0f, 1.0f);
 
 public:
     void render() override;
@@ -31,6 +32,8 @@ public:
     void setFlip(SDL_FlipMode flip) { imageTexture_->flip_ = flip; }
     virtual void setLoop(bool) {};
     bool getIsFinish() { return is_finish_; }
+    void setPercent(glm::vec2 percent) { percent_ = percent; }
+    glm::vec2 getPercent() { return percent_; }
 };
 
 template <typename T>

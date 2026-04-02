@@ -17,6 +17,7 @@ void SceneMain::init()
     addChild(spawner_);
     addChild(player_); // 让玩家比敌人后渲染
     ui_mouse_ = UI_Mouse::createUiMouseAddChild(this, "assets/UI/29.png", "assets/UI/30.png");
+    player_stats_hud_bar_ = HUDStats::createHUDStatsAddChild(this, player_, {30, 30});
 }
 
 void SceneMain::handleEvents(SDL_Event &event)

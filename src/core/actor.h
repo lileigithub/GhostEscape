@@ -16,7 +16,7 @@ protected:
 public:
     void update(float dt) override;
     void move(float dt);
-    int getDemage();
+    float getDemage();
     Stats *getStats() { return stats_; }
     void updateHealthBar();
 };
