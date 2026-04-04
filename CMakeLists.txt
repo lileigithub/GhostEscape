@@ -75,6 +75,7 @@ set(SOURCES
     src/core/object_affiliate.cpp
     src/player.cpp
     src/scene_main.cpp
+    src/scene_title.cpp
     src/enemy.cpp
     src/spawner.cpp
     src/weapon_thunder.cpp

@@ -25,6 +25,7 @@ private:
     float dt_ = 0;          // 每帧的时间间隔, 单位为秒
     Uint64 last_time_ns_ = 0;
     int score_ = 0;
+    int high_score_ = 0;
     std::mt19937 gen = std::mt19937(std::random_device{}());
     TTF_TextEngine *ttf_engine_ = nullptr; // TTF字体引擎
 
@@ -64,14 +65,17 @@ public:
 
     glm::vec2 getMousePos();
     int getScore() { return score_; }
-    void setScore(int score) { score_ = score; }
+    void setScore(int score) { score_ = score; if (score > high_score_) high_score_ = score; }
+    int getHighScore() { return high_score_; }
 
     void drawGrid(glm::vec2 left_top, glm::vec2 right_bottom, glm::vec2 cell_size, SDL_FColor color);
     void drawRect(SDL_FRect rect, SDL_FColor color);
     void renderFillCircle(const std::string &texture_name, glm::vec2 pos, glm::vec2 size, float alpha);
     void renderTexture(ImageTexture *imageTexture, glm::vec2 pos, glm::vec2 size, glm::vec2 mask = glm::vec2(1.0f, 1.0f));
+    void drawBoundary(const glm::vec2 &top_left, const glm::vec2 &botton_right, float boundary_width, SDL_FColor fcolor);
     float randomFloat(float min, float max) { return std::uniform_real_distribution<float>(min, max)(gen); }
     glm::vec2 randomVec2(glm::vec2 min, glm::vec2 max) { return glm::vec2(randomFloat(min.x, max.x), randomFloat(min.y, max.y)); }
+    
 
     void playMusic(const std::string &music_path, int loop = true) {Mix_PlayMusic(asset_store_->getMusic(music_path), loop ? -1 : 0);};
     void playChunk(const std::string &sound_path) { Mix_PlayChannel(-1, asset_store_->getChunk(sound_path), 0); };

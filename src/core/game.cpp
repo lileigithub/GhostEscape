@@ -1,6 +1,7 @@
 #include "game.h"
 #include "../affiliates/sprite.h"
 #include "../scene_main.h"
+#include "../scene_title.h"
 
 void Game::init()
 {
@@ -49,7 +50,7 @@ void Game::init()
 
     frame_time_ = 1000000000 / FPS_;
 
-    current_scene_ = new SceneMain();
+    current_scene_ = new SceneTitle();
     current_scene_->init();
 }
 
@@ -195,4 +196,19 @@ void Game::renderTexture(ImageTexture *imageTexture, glm::vec2 pos, glm::vec2 si
     SDL_FRect dstrect{pos.x, pos.y + size.y * (1.0f - mask.y), size.x * mask.x, size.y * mask.y};
     SDL_RenderTextureRotated(renderer_, imageTexture->texture, &src_rect,
                              &dstrect, imageTexture->angle, nullptr, imageTexture->flip_);
+}
+
+void Game::drawBoundary(const glm::vec2 &top_left, const glm::vec2 &botton_right, float boundary_width, SDL_FColor fcolor)
+{
+    SDL_SetRenderDrawColorFloat(renderer_, fcolor.r, fcolor.g, fcolor.b, fcolor.a);
+    for (float i = 0; i < boundary_width; i++){
+        SDL_FRect rect = {
+            top_left.x - i,
+            top_left.y - i,
+            botton_right.x - top_left.x + 2 * i,
+            botton_right.y - top_left.y + 2 * i
+        };
+        SDL_RenderRect(renderer_, &rect);
+    }
+    SDL_SetRenderDrawColorFloat(renderer_, 0, 0, 0, 1);
 }
