@@ -15,8 +15,6 @@ void Player::init()
     collider_ = Collider::creatColliderAddChild(this, idleAnim_->getSize() / 2.0f);
     stats_ = Stats::createStatsAddChild(this);
     weapon_ = WeaponThunder::createWeaponThunderAddChild(this, 1.0f, 10);
-
-    TextLabel::createTextLabelAddChild(this, "我是主角", "assets/font/VonwaonBitmap-16px.ttf", 16, Anchor::CENTER);
 };
 void Player::handleEvents(SDL_Event &event)
 {

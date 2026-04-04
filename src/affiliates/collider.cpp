@@ -10,12 +10,13 @@ void Collider::render()
 
 bool Collider::isColliding(Collider *other)
 {
+    // TODO 有bug，当技能在敌人的上方而没有包含敌人的最下边时，没有判断为碰撞
     if (other == nullptr)
         return false;
     if (type_ == CIRCLE && other->type_ == CIRCLE)
     {
-        float distance = glm::length(parent_->getPosition() + offset_ - other->parent_->getPosition() - other->offset_);
-        return distance < (getSize().x + other->getSize().x) / 2;
+        float distance = glm::length(parent_->getScreenPos() + offset_ - other->parent_->getScreenPos() - other->offset_);
+        return distance <= (getSize().x + other->getSize().x) / 2.0f;
     }
     return false;
 }

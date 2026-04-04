@@ -24,6 +24,7 @@ private:
     Uint64 frame_time_ = 0; // 每帧的时间间隔, 单位为纳秒
     float dt_ = 0;          // 每帧的时间间隔, 单位为秒
     Uint64 last_time_ns_ = 0;
+    int score_ = 0;
     std::mt19937 gen = std::mt19937(std::random_device{}());
     TTF_TextEngine *ttf_engine_ = nullptr; // TTF字体引擎
 
@@ -62,6 +63,8 @@ public:
     TTF_Text *createTTF_Text(const std::string &text, const std::string &fontPath, int fontSize);
 
     glm::vec2 getMousePos();
+    int getScore() { return score_; }
+    void setScore(int score) { score_ = score; }
 
     void drawGrid(glm::vec2 left_top, glm::vec2 right_bottom, glm::vec2 cell_size, SDL_FColor color);
     void drawRect(SDL_FRect rect, SDL_FColor color);

@@ -99,6 +99,7 @@ void Enemy::dead()
     // 死亡动画停止后，删除敌人
     if (dead_anim_->getIsFinish())
     {
+        game_.setScore(game_.getScore() + 10);
         setNeedRemove(true);
     }
 }
