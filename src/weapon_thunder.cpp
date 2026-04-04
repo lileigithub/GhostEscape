@@ -1,9 +1,26 @@
 #include "weapon_thunder.h"
 #include "core/actor.h"
 #include "core/stats.h"
+#include "core/scene.h"
+
+void WeaponThunder::init()
+{
+    Weapon::init();
+    hud_skill_ = HUDSkill::createHUDSkillAddChild(game_.getCurrentScene(), "assets/UI/Electric-Icon.png", {game_.getSceneSize().x - 300.0f, 30.0f}, 0.14f, CENTER);
+}
+
+void WeaponThunder::update(float dt)
+{
+    Weapon::update(dt);
+    if (hud_skill_) {
+        hud_skill_-> setPercent(cooldown_timer_ / cooldown_time_);
+    }
+}
+
 WeaponThunder *WeaponThunder::createWeaponThunderAddChild(Actor *parent, float cooldownTime, int costMana)
 {
     WeaponThunder *weaponThunder = new WeaponThunder();
+    weaponThunder->init();
     weaponThunder->cooldown_time_ = cooldownTime;
     weaponThunder->cost_mana_ = costMana;
     weaponThunder->parent_ = parent;

@@ -180,9 +180,9 @@ void Game::renderFillCircle(const std::string &path, glm::vec2 pos, glm::vec2 si
 
 void Game::renderTexture(ImageTexture *imageTexture, glm::vec2 pos, glm::vec2 size, glm::vec2 mask)
 {
-    SDL_FRect src_rect{imageTexture->src_rect.x, imageTexture->src_rect.y,
+    SDL_FRect src_rect{imageTexture->src_rect.x, imageTexture->src_rect.y + imageTexture->src_rect.h * (1.0f - mask.y),
                        imageTexture->src_rect.w * mask.x, imageTexture->src_rect.h * mask.y};
-    SDL_FRect dstrect{pos.x, pos.y, size.x * mask.x, size.y * mask.y};
+    SDL_FRect dstrect{pos.x, pos.y + size.y * (1.0f - mask.y), size.x * mask.x, size.y * mask.y};
     SDL_RenderTextureRotated(renderer_, imageTexture->texture, &src_rect,
                              &dstrect, imageTexture->angle, nullptr, imageTexture->flip_);
 }

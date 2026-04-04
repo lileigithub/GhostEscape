@@ -28,7 +28,6 @@ void HUDStats::update(float dt)
     if (mana_bar_ && target_ && target_->getStats())
     {
         mana_bar_->setPercent({target_->getStats()->getCurrentMana() / target_->getStats()->getMaxMana(), 1.0f});
-        SDL_Log("mana bar curront:%d,  percent: %f", target_->getStats()->getCurrentMana(), mana_bar_->getPercent().x);
     }
 }
 
