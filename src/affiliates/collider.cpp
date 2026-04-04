@@ -5,17 +5,17 @@ void Collider::render()
     ObjectAffiliate::render();
 #ifdef DEBUG_MODE
     game_.renderFillCircle("assets/UI/circle.png", parent_->getScreenPos() + offset_, getSize(), 0.3f);
+    game_.drawRect({parent_->getScreenPos().x, parent_->getScreenPos().y, 10, 10}, {255, 255, 255, 255});
 #endif
 }
 
 bool Collider::isColliding(Collider *other)
 {
-    // TODO 有bug，当技能在敌人的上方而没有包含敌人的最下边时，没有判断为碰撞
     if (other == nullptr)
         return false;
     if (type_ == CIRCLE && other->type_ == CIRCLE)
     {
-        float distance = glm::length(parent_->getScreenPos() + offset_ - other->parent_->getScreenPos() - other->offset_);
+        float distance = glm::length(parent_->getScreenPos() - other->parent_->getScreenPos());
         return distance <= (getSize().x + other->getSize().x) / 2.0f;
     }
     return false;
