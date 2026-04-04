@@ -51,7 +51,7 @@ bool Enemy::attack(Actor *other)
 {
     if (collider_->isColliding(other->getCollider()))
     {
-        other->getStats()->takeDamage(stats_->getDemage());
+        other->takeDamage(stats_->getDemage());
         return true;
     }
     return false;
@@ -102,9 +102,4 @@ void Enemy::dead()
         game_.setScore(game_.getScore() + 10);
         setNeedRemove(true);
     }
-}
-
-void Enemy::takeDamage(float damage)
-{
-    stats_->takeDamage(damage);
 }

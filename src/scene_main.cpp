@@ -22,6 +22,7 @@ void SceneMain::init()
     score_hud_text_ = HUDText::createHUDTextAddChild(this, "Score: 0", scorePos, glm::vec2(200.0f, 50.0f));
 
     ui_mouse_ = UI_Mouse::createUiMouseAddChild(this, "assets/UI/29.png", "assets/UI/30.png");
+    game_.playMusic("assets/bgm/OhMyGhost.ogg", true);
 }
 
 void SceneMain::handleEvents(SDL_Event &event)

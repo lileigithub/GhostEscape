@@ -27,3 +27,10 @@ void Actor::updateHealthBar()
         health_bar_->setPercent(stats_->getCurrentHealth() / stats_->getMaxHealth());
     }
 }
+
+void Actor::takeDamage(float damage)
+{
+    if (stats_) {
+        stats_->takeDamage(damage);
+    }
+}

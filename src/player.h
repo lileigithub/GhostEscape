@@ -23,4 +23,5 @@ public:
     void keyBoardControl();
     void changeState();
     void whenDead();
+    void takeDamage(float damage) override;
 };

@@ -38,7 +38,7 @@ void AssetStore::loadFont(const std::string &path, int size)
     TTF_Font *font = TTF_OpenFont(path.c_str(), size);
     if (font == nullptr)
     {
-        SDL_LogInfo(SDL_LOG_CATEGORY_APPLICATION, "Failed to load font: %s", SDL_GetError);
+        SDL_LogInfo(SDL_LOG_CATEGORY_APPLICATION, "Failed to load font, path: %s, size: %d", path, size);
         return;
     }
     fontMap_.emplace(path + std::to_string(size), font);
@@ -101,7 +101,7 @@ TTF_Font *AssetStore::getFont(const std::string &path, int size)
         it = fontMap_.find(path + std::to_string(size));
         if (it == fontMap_.end())
         {
-            SDL_LogInfo(SDL_LOG_CATEGORY_APPLICATION, "Failed to load font: %s", SDL_GetError);
+            SDL_LogInfo(SDL_LOG_CATEGORY_APPLICATION, "not find font: %s, path: %s, size: %d", path, size);
             return nullptr;
         }
     }

@@ -72,4 +72,13 @@ public:
     void renderTexture(ImageTexture *imageTexture, glm::vec2 pos, glm::vec2 size, glm::vec2 mask = glm::vec2(1.0f, 1.0f));
     float randomFloat(float min, float max) { return std::uniform_real_distribution<float>(min, max)(gen); }
     glm::vec2 randomVec2(glm::vec2 min, glm::vec2 max) { return glm::vec2(randomFloat(min.x, max.x), randomFloat(min.y, max.y)); }
+
+    void playMusic(const std::string &music_path, int loop = true) {Mix_PlayMusic(asset_store_->getMusic(music_path), loop ? -1 : 0);};
+    void playChunk(const std::string &sound_path) { Mix_PlayChannel(-1, asset_store_->getChunk(sound_path), 0); };
+    void stopMusic() { Mix_HaltMusic(); };
+    void stopChunk() { Mix_HaltChannel(-1); };
+    void pauseMusic() { Mix_PauseMusic(); };
+    void resumeMusic() { Mix_ResumeMusic(); };
+    void pauseChunk() { Mix_Pause(-1); };
+    void resumeChunk() { Mix_Resume(-1); };
 };

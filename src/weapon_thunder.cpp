@@ -36,6 +36,7 @@ void WeaponThunder::handleEvents(SDL_Event &event)
         if (event.button.button == SDL_BUTTON_LEFT && canAttack())
         {
             // 施放技能
+            game_.playChunk("assets/sound/big-thunder.mp3");
             auto pos = game_.getMousePos();
             auto spell = Spell::createSpellAddChild(nullptr, "assets/effect/Thunderstrike w blur.png", pos, demage_, 5, 9, 3.0f);
             attack(spell);

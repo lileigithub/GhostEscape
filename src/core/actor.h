@@ -19,4 +19,5 @@ public:
     float getDemage();
     Stats *getStats() { return stats_; }
     void updateHealthBar();
+    virtual void takeDamage(float damage);
 };

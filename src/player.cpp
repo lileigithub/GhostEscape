@@ -107,8 +107,16 @@ void Player::whenDead()
 {
     if (!stats_->getIsAlive()) {
         setActive(false);
+        game_.playChunk("assets/sound/female-scream-02-89290.mp3");
         auto deadEffect = Effect::createEffectAddChild(nullptr, "assets/effect/1764.png", this->getPosition(), 2.0f);
         game_.getCurrentScene()->addChild(deadEffect);
         deadEffect = nullptr;
     }
+}
+
+void Player::takeDamage(float damage)
+{
+    if (!stats_ || !stats_->getIsAlive() || stats_->getIsInvicible()) return;
+    game_.playChunk("assets/sound/hit-flesh-02-266309.mp3");
+    Actor::takeDamage(damage);
 }

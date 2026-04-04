@@ -40,5 +40,4 @@ public:
     void aimTarget();
     void changeState(State state);
     void dead();
-    void takeDamage(float) override;
 };
