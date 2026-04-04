@@ -14,10 +14,8 @@ void HUDSkill::render()
   // TODO 绘制冷却时间文字。
 }
 
-HUDSkill *HUDSkill::createHUDSkillAddChild(Object *parent,
-                                           const std::string &path,
-                                           glm::vec2 pos, float scale,
-                                           Anchor anchor)
+HUDSkill *HUDSkill::createHUDSkillAddChild(Object *parent, const std::string &path,
+                                           glm::vec2 pos, float scale, Anchor anchor)
 {
   HUDSkill *hudSkill = new HUDSkill();
   hudSkill->init();

@@ -43,6 +43,8 @@ void Game::init()
     }
     SDL_SetRenderLogicalPresentation(renderer_, static_cast<int>(screen_size_.x), static_cast<int>(screen_size_.y), SDL_LOGICAL_PRESENTATION_LETTERBOX);
 
+    ttf_engine_ = TTF_CreateRendererTextEngine(renderer_);
+
     asset_store_ = new AssetStore(renderer_);
 
     frame_time_ = 1000000000 / FPS_;
@@ -54,6 +56,9 @@ void Game::init()
 void Game::clean()
 {
     asset_store_->clean();
+
+    TTF_DestroyRendererTextEngine(ttf_engine_);
+
     delete asset_store_;
     current_scene_->clean();
     delete current_scene_;
@@ -134,6 +139,11 @@ void Game::render()
     SDL_RenderClear(renderer_);
     current_scene_->render();
     SDL_RenderPresent(renderer_);
+}
+
+TTF_Text *Game::createTTF_Text(const std::string &text, const std::string &fontPath, int fontSize)
+{
+    return TTF_CreateText(ttf_engine_, asset_store_->getFont(fontPath, fontSize), text.c_str(), 0);
 }
 
 glm::vec2 Game::getMousePos()

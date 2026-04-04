@@ -1,12 +1,12 @@
 ﻿#pragma once
 
+#include "asset_store.h"
 #include <SDL3/SDL.h>
 #include <SDL3_image/SDL_image.h>
 #include <SDL3_mixer/SDL_mixer.h>
 #include <SDL3_ttf/SDL_ttf.h>
 #include <glm/glm.hpp>
 #include <random>
-#include "asset_store.h"
 
 class Scene;
 struct ImageTexture;
@@ -25,6 +25,7 @@ private:
     float dt_ = 0;          // 每帧的时间间隔, 单位为秒
     Uint64 last_time_ns_ = 0;
     std::mt19937 gen = std::mt19937(std::random_device{}());
+    TTF_TextEngine *ttf_engine_ = nullptr; // TTF字体引擎
 
     Game() {};
 
@@ -58,12 +59,14 @@ public:
     SDL_Renderer *getRenderer() const { return renderer_; }
     AssetStore *getAssetStore() const { return asset_store_; }
 
+    TTF_Text *createTTF_Text(const std::string &text, const std::string &fontPath, int fontSize);
+
     glm::vec2 getMousePos();
 
     void drawGrid(glm::vec2 left_top, glm::vec2 right_bottom, glm::vec2 cell_size, SDL_FColor color);
     void drawRect(SDL_FRect rect, SDL_FColor color);
     void renderFillCircle(const std::string &texture_name, glm::vec2 pos, glm::vec2 size, float alpha);
-    void renderTexture(ImageTexture * imageTexture, glm::vec2 pos, glm::vec2 size, glm::vec2 mask = glm::vec2(1.0f, 1.0f));
+    void renderTexture(ImageTexture *imageTexture, glm::vec2 pos, glm::vec2 size, glm::vec2 mask = glm::vec2(1.0f, 1.0f));
     float randomFloat(float min, float max) { return std::uniform_real_distribution<float>(min, max)(gen); }
     glm::vec2 randomVec2(glm::vec2 min, glm::vec2 max) { return glm::vec2(randomFloat(min.x, max.x), randomFloat(min.y, max.y)); }
 };

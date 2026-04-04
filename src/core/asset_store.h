@@ -23,12 +23,12 @@ public:
     void loadImmage(const std::string& path);
     void loadMusic(const std::string& path);
     void loadChunk(const std::string& path);
-    void loadFont(const std::string& path, float size);
+    void loadFont(const std::string& path, int size);
 
     SDL_Texture* getImmage(const std::string& path);
     Mix_Music* getMusic(const std::string& path);
     Mix_Chunk* getChunk(const std::string& path);
-    TTF_Font* getFont(const std::string& path, float size);
+    TTF_Font* getFont(const std::string& path, int size);
 
     void clean();
 };
