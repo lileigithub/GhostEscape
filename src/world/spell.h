@@ -7,15 +7,15 @@ class Spell : public ObjectWorld
 {
 protected:
     SpriteAnim *sprite_anim_ = nullptr;
-    int damage_ = 120;
+    float damage_ = 120;
     int damage_min_frame_ = 0;
     int damage_max_frame_ = 0;
 
 public:
     void update(float dt) override;
     void attack();
-    static Spell* createSpellAddChild(Object* parent, const std::string& path, glm::vec2 pos, int damage, int damageMinFrame, int damageMaxFrame, float scale = 1.0f, Anchor anchor = CENTER);
+    static Spell* createSpellAddChild(Object* parent, const std::string& path, glm::vec2 pos, float damage, int damageMinFrame, int damageMaxFrame, float scale = 1.0f, Anchor anchor = CENTER);
     // getter setter
-    int getDamage() { return damage_; }
-    void setDamage(int damage) { damage_ = damage; }
+    float getDamage() { return damage_; }
+    void setDamage(float damage) { damage_ = damage; }
 };

@@ -14,7 +14,7 @@ void Player::init()
     moveAnim_ = Sprite::createSpriteAddChild<SpriteAnim>(this, "assets/sprite/ghost-move.png", 2.0f);
     collider_ = Collider::creatColliderAddChild(this, idleAnim_->getSize() / 2.0f);
     stats_ = Stats::createStatsAddChild(this);
-    weapon_ = WeaponThunder::createWeaponThunderAddChild(this, 1.0f, 0);
+    weapon_ = WeaponThunder::createWeaponThunderAddChild(this, 1.0f, 10);
 };
 void Player::handleEvents(SDL_Event &event)
 {

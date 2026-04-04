@@ -14,7 +14,7 @@ void Sprite::render()
     {
         return;
     }
-    game_.renderTexture(imageTexture_, parent_->getScreenPos() + offset_, getSize());
+    game_.renderTexture(imageTexture_, parent_->getScreenPos() + offset_, getSize(), percent_);
 }
 
 void Sprite::clean()

@@ -26,7 +26,7 @@ void Spell::attack()
     }
 }
 
-Spell *Spell::createSpellAddChild(Object *parent, const std::string &path, glm::vec2 pos, int damage, int damageMinFrame, int damageMaxFrame, float scale, Anchor anchor)
+Spell *Spell::createSpellAddChild(Object *parent, const std::string &path, glm::vec2 pos, float damage, int damageMinFrame, int damageMaxFrame, float scale, Anchor anchor)
 {
     Spell *spell = new Spell();
     spell->setPosition(pos);

@@ -57,6 +57,7 @@ set(SOURCES
     src/world/effect.cpp
     src/world/spell.cpp
     src/screen/ui_mouse.cpp
+    src/screen/hud_stats.cpp
     src/core/asset_store.cpp
     src/core/game.cpp
     src/core/main.cpp

@@ -8,14 +8,26 @@ void Stats::update(float dt)
         {
             invicible_timer_ = 0.0f;
             is_invicible_ = false;
-        } else {
+        }
+        else
+        {
             invicible_timer_ += dt;
         }
     }
+
+    if (current_mana_ < max_mana_)
+    {
+        current_mana_ += restore_mana_ * dt;
+        if (current_mana_ > max_mana_)
+        {
+            current_mana_ = max_mana_;
+        }
+    }
 }
-void Stats::takeDamage(int demage)
+void Stats::takeDamage(float demage)
 {
-    if (is_alive_ == false) return;
+    if (is_alive_ == false)
+        return;
     if (invicible_timer_ > FLT_EPSILON)
         return;
     if (demage < 0)
@@ -31,7 +43,7 @@ void Stats::takeDamage(int demage)
     }
 }
 
-Stats *Stats::createStatsAddChild(Actor *parent, int health, int mana, int demage)
+Stats *Stats::createStatsAddChild(Actor *parent, float health, float mana, float demage)
 {
     Stats *stats = new Stats();
     stats->parent_ = parent;
