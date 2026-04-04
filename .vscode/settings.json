@@ -1,5 +1,9 @@
 {
     "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
+    "clangd.arguments": [
+        "--compile-commands-dir=${workspaceFolder}"
+    ],
+    "cmake.copyCompileCommands": "${workspaceFolder}/compile_commands.json",
     "cmake.configureEnvironment": {
         "LC_ALL": "en_US.UTF-8"
     },

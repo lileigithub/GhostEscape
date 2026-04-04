@@ -1,0 +1,7 @@
+-xc++
+-std=c++20
+-I.
+-Isrc
+-Iprebuilt/include
+-Iexternal/glm-1.0.1
+-Iexternal/SDL_mixer-30c1301/include

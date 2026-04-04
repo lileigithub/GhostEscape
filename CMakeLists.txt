@@ -9,6 +9,8 @@ project(GhostEscape VERSION 0.1.0 LANGUAGES C CXX)
 # ============================================
 # 适配cursor debug
 set(CMAKE_BUILD_TYPE Debug)
+# 适配cursor clang 扩展
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 # 指定搜索路径（用于find_package在编译期查找库）
 set(CMAKE_PREFIX_PATH ${CMAKE_SOURCE_DIR}/prebuilt)
 
