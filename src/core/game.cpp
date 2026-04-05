@@ -85,6 +85,14 @@ void Game::run()
     {
         last_time_ns_ = SDL_GetTicksNS();
 
+        if (next_scene_) {
+            current_scene_->clean();
+            delete current_scene_;
+            current_scene_ = next_scene_;
+            next_scene_ = nullptr;
+            current_scene_->init();
+        }
+
         handleEvents();
         update(dt_);
         render();
@@ -211,4 +219,9 @@ void Game::drawBoundary(const glm::vec2 &top_left, const glm::vec2 &botton_right
         SDL_RenderRect(renderer_, &rect);
     }
     SDL_SetRenderDrawColorFloat(renderer_, 0, 0, 0, 1);
+}
+
+bool Game::checkPointInRect(const glm::vec2 &point, const glm::vec2 &top_left, const glm::vec2 &bottom_right)
+{
+    return point.x >= top_left.x && point.x <= bottom_right.x && point.y >= top_left.y && point.y <= bottom_right.y;
 }

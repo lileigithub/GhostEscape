@@ -63,6 +63,7 @@ set(SOURCES
     src/screen/hud_stats.cpp
     src/screen/hud_skill.cpp
     src/screen/hud_text.cpp
+    src/screen/hud_button.cpp
     src/core/asset_store.cpp
     src/core/game.cpp
     src/core/main.cpp

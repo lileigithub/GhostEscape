@@ -19,6 +19,7 @@ void Player::init()
 void Player::handleEvents(SDL_Event &event)
 {
     Actor::handleEvents(event);
+    // TODO 鼠标右键点击移动到指定位置
 }
 void Player::update(float dt)
 {

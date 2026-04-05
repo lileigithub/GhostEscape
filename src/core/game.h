@@ -15,6 +15,7 @@ class Game
 {
 private:
     Scene *current_scene_ = nullptr;
+    Scene *next_scene_ = nullptr;
     glm::vec2 screen_size_ = glm::vec2(0);
     SDL_Window *window_ = nullptr;
     SDL_Renderer *renderer_ = nullptr;
@@ -60,6 +61,7 @@ public:
     glm::vec2 getSceneSize() const { return screen_size_; }
     SDL_Renderer *getRenderer() const { return renderer_; }
     AssetStore *getAssetStore() const { return asset_store_; }
+    void setIsRunning(bool is_running) { is_running_ = is_running; }
 
     TTF_Text *createTTF_Text(const std::string &text, const std::string &fontPath, int fontSize);
 
@@ -75,7 +77,8 @@ public:
     void drawBoundary(const glm::vec2 &top_left, const glm::vec2 &botton_right, float boundary_width, SDL_FColor fcolor);
     float randomFloat(float min, float max) { return std::uniform_real_distribution<float>(min, max)(gen); }
     glm::vec2 randomVec2(glm::vec2 min, glm::vec2 max) { return glm::vec2(randomFloat(min.x, max.x), randomFloat(min.y, max.y)); }
-    
+    bool checkPointInRect(const glm::vec2 &point, const glm::vec2 &top_left, const glm::vec2 &bottom_right);
+    void changeScene(Scene *scene) { next_scene_ = scene; }
 
     void playMusic(const std::string &music_path, int loop = true) {Mix_PlayMusic(asset_store_->getMusic(music_path), loop ? -1 : 0);};
     void playChunk(const std::string &sound_path) { Mix_PlayChannel(-1, asset_store_->getChunk(sound_path), 0); };

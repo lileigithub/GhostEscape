@@ -2,6 +2,7 @@
 
 #include "core/scene.h"
 #include "screen/hud_text.h"
+#include "screen/hud_button.h"
 class SceneTitle : public Scene
 {
 
@@ -10,6 +11,9 @@ protected:
     HUDText* title_ = nullptr;
     HUDText* subtitle_ = nullptr;
     float color_timer_ = 0.0f;
+    HUDButton* button_start_ = nullptr;
+    HUDButton* button_credits_ = nullptr;
+    HUDButton* button_exit_ = nullptr;
 
 public:
     void init() override;
@@ -17,4 +21,5 @@ public:
     void render() override;
     void clean() override;
     void updateColor();
+    void updateButtonTriggers();
 };
