@@ -2,10 +2,12 @@
 #include "scene_main.h"
 #include "screen/ui_mouse.h"
 #include <cmath>
+#include <fstream>
 
 void SceneTitle::init()
 {
     Scene::init();
+    loadFile();
     title_ = HUDText::createHUDTextAddChild(this, "幽 灵 逃 生", game_.getSceneSize() / 2.0f - glm::vec2(0, 100),
                                             glm::vec2(game_.getSceneSize().x / 2.0f, game_.getSceneSize().y / 3.0f), 64);
 
@@ -96,4 +98,15 @@ void SceneTitle::updateButtonTriggers()
     {
         text_credits_->setActive(true);
     }
+}
+
+void SceneTitle::loadFile(const std::string &path)
+{
+    int highScore = 0;
+    std::ifstream file(path, std::ios::binary);
+    if (file.is_open()) {
+        file.read(reinterpret_cast<char *>(&highScore), sizeof(int));
+        file.close();
+    }
+    game_.setHighScore(highScore);
 }

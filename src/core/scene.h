@@ -29,6 +29,8 @@ public:
 
     void addChild(Object *child) override;
     void removeChild(Object *child) override;
+    virtual void loadFile(const std::string &) {};
+    virtual void saveFile(const std::string &) {};
 
     void setCameraPos(glm::vec2 cameraPos);
     void setIsPause(bool is_pause);

@@ -16,19 +16,24 @@ class Game
 private:
     Scene *current_scene_ = nullptr;
     Scene *next_scene_ = nullptr;
+
     glm::vec2 screen_size_ = glm::vec2(0);
     SDL_Window *window_ = nullptr;
     SDL_Renderer *renderer_ = nullptr;
     AssetStore *asset_store_ = nullptr;
+    TTF_TextEngine *ttf_engine_ = nullptr; // TTF字体引擎
+
     bool is_running_ = true;
     Uint64 FPS_ = 60;
-    Uint64 frame_time_ = 0; // 每帧的时间间隔, 单位为纳秒
-    float dt_ = 0;          // 每帧的时间间隔, 单位为秒
+    Uint64 frame_time_ns_ = 0; // 每帧的时间间隔, 单位为纳秒
+    float dt_s_ = 0;          // 每帧的时间间隔, 单位为秒
     Uint64 last_time_ns_ = 0;
+
     int score_ = 0;
     int high_score_ = 0;
+
     std::mt19937 gen = std::mt19937(std::random_device{}());
-    TTF_TextEngine *ttf_engine_ = nullptr; // TTF字体引擎
+
 
     Game() {};
 
@@ -70,6 +75,7 @@ public:
     int getScore() { return score_; }
     void setScore(int score) { score_ = score; if (score > high_score_) high_score_ = score; }
     int getHighScore() { return high_score_; }
+    void setHighScore(int high_score) { high_score_ = high_score; }
 
     void drawGrid(glm::vec2 left_top, glm::vec2 right_bottom, glm::vec2 cell_size, SDL_FColor color);
     void drawRect(SDL_FRect rect, SDL_FColor color);

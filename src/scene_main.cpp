@@ -6,6 +6,7 @@
 #include "spawner.h"
 #include "world/effect.h"
 #include "world/spell.h"
+#include <fstream>
 void SceneMain::init()
 {
     Scene::init();
@@ -63,6 +64,7 @@ void SceneMain::clean()
 {
     Scene::clean();
     game_.stopMusic();
+    saveFile();
 }
 
 void SceneMain::drawBackground()
@@ -105,11 +107,25 @@ void SceneMain::checkEndGame()
         // 这里暂停，当前场景会暂停，计时器会暂停。
         setIsPause(true);
         end_timer_->stop();
+        saveFile();
         // 调整图标的位置和大小
         button_restart_->setScreenPos(game_.getSceneSize() / 2.0f + glm::vec2(-200.0f, 0.0f));
         button_restart_->setScale(2.8f);
         button_back_->setScreenPos(game_.getSceneSize() / 2.0f + glm::vec2(200.0f, 0.0f));
         button_back_->setScale(2.8f);
         button_pause_->setActive(false);
+    }
+}
+
+void SceneMain::saveFile(const std::string &path)
+{
+    int highScore = game_.getHighScore();
+    std::ofstream file(path, std::ios::binary);
+    if (file.is_open()) {
+        file.write(reinterpret_cast<char *>(&highScore), sizeof(int));
+        if (file.fail()) {
+            SDL_Log("Failed to write high score to file");
+        }
+        file.close();
     }
 }

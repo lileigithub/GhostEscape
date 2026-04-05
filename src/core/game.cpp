@@ -49,7 +49,7 @@ void Game::init()
 
     asset_store_ = new AssetStore(renderer_);
 
-    frame_time_ = 1000000000 / FPS_;
+    frame_time_ns_ = 1000000000 / FPS_;
 
     current_scene_ = new SceneTitle();
     current_scene_->init();
@@ -96,24 +96,24 @@ void Game::run()
         }
 
         handleEvents();
-        update(dt_);
+        update(dt_s_);
         render();
 
         auto diff = SDL_GetTicksNS() - last_time_ns_;
         // 控制帧率
-        if (diff < frame_time_)
+        if (diff < frame_time_ns_)
         {
-            SDL_DelayNS(frame_time_ - diff);
-            dt_ = frame_time_ / 1.0e9f;
+            SDL_DelayNS(frame_time_ns_ - diff);
+            dt_s_ = frame_time_ns_ / 1.0e9f;
         }
         else
         {
-            dt_ = diff / 1.0e9f;
+            dt_s_ = diff / 1.0e9f;
         }
-        if (dt_ > 0.1f)
+        if (dt_s_ > 0.1f)
         {
-            SDL_LogInfo(SDL_LOG_CATEGORY_APPLICATION, "Warning: Large dt detected: %f seconds.", dt_);
-            dt_ = 0.1f; // 防止dt过大导致游戏逻辑异常，比如玩家瞬移等
+            SDL_LogInfo(SDL_LOG_CATEGORY_APPLICATION, "Warning: Large dt detected: %f seconds.", dt_s_);
+            dt_s_ = 0.1f; // 防止dt过大导致游戏逻辑异常，比如玩家瞬移等
         }
     }
 }
@@ -141,7 +141,7 @@ void Game::handleEvents()
 
 void Game::update(float)
 {
-    current_scene_->update(dt_);
+    current_scene_->update(dt_s_);
 }
 
 void Game::render()

@@ -32,4 +32,5 @@ public:
     void updateScoreText();
     void updateButtonTriggers();
     void checkEndGame();
+    void saveFile(const std::string &path = "assets/saveData.dat") override;
 };
