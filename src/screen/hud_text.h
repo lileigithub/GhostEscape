@@ -27,4 +27,5 @@ public:
         sprite_bg_->setSize(size);
     }
     void setText(const std::string &text) { text_label_->setText(text); }
+    void setBgSzieByText(float margin = 20.0f);
 };

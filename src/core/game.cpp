@@ -2,6 +2,7 @@
 #include "../affiliates/sprite.h"
 #include "../scene_main.h"
 #include "../scene_title.h"
+#include <fstream>
 
 void Game::init()
 {
@@ -85,7 +86,8 @@ void Game::run()
     {
         last_time_ns_ = SDL_GetTicksNS();
 
-        if (next_scene_) {
+        if (next_scene_)
+        {
             current_scene_->clean();
             delete current_scene_;
             current_scene_ = next_scene_;
@@ -209,13 +211,13 @@ void Game::renderTexture(ImageTexture *imageTexture, glm::vec2 pos, glm::vec2 si
 void Game::drawBoundary(const glm::vec2 &top_left, const glm::vec2 &botton_right, float boundary_width, SDL_FColor fcolor)
 {
     SDL_SetRenderDrawColorFloat(renderer_, fcolor.r, fcolor.g, fcolor.b, fcolor.a);
-    for (float i = 0; i < boundary_width; i++){
+    for (float i = 0; i < boundary_width; i++)
+    {
         SDL_FRect rect = {
             top_left.x - i,
             top_left.y - i,
             botton_right.x - top_left.x + 2 * i,
-            botton_right.y - top_left.y + 2 * i
-        };
+            botton_right.y - top_left.y + 2 * i};
         SDL_RenderRect(renderer_, &rect);
     }
     SDL_SetRenderDrawColorFloat(renderer_, 0, 0, 0, 1);
@@ -224,4 +226,16 @@ void Game::drawBoundary(const glm::vec2 &top_left, const glm::vec2 &botton_right
 bool Game::checkPointInRect(const glm::vec2 &point, const glm::vec2 &top_left, const glm::vec2 &bottom_right)
 {
     return point.x >= top_left.x && point.x <= bottom_right.x && point.y >= top_left.y && point.y <= bottom_right.y;
+}
+
+std::string Game::loadTextFile(const std::string &path)
+{
+    std::ifstream file(path);
+    std::string line;
+    std::string text;
+    while (std::getline(file, line))
+    {
+        text += line + "\n";
+    }
+    return text;
 }

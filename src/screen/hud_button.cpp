@@ -2,6 +2,8 @@
 
 void HUDButton::handleEvents(SDL_Event &event)
 {
+    if (is_freezed_)
+        return;
     ObjectScreen::handleEvents(event);
     if (event.type == SDL_EVENT_MOUSE_BUTTON_DOWN)
     {
@@ -33,6 +35,8 @@ void HUDButton::handleEvents(SDL_Event &event)
 
 void HUDButton::update(float dt)
 {
+    if (is_freezed_)
+        return;
     ObjectScreen::update(dt);
     checkHover();
     changeSpriteState();
@@ -62,9 +66,9 @@ void HUDButton::checkHover()
     if (new_is_hover_ != is_hover_)
     {
         is_hover_ = new_is_hover_;
-        if (is_hover_) game_.playChunk("assets/sound/UI_button08.wav");// 状态改变，并且是从未悬停到悬停，播放悬停音效
+        if (is_hover_)
+            game_.playChunk("assets/sound/UI_button08.wav"); // 状态改变，并且是从未悬停到悬停，播放悬停音效
     }
-    
 }
 
 void HUDButton::changeSpriteState()

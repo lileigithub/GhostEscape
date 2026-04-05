@@ -12,6 +12,7 @@ protected:
     bool is_hover_ = false;   // 鼠标悬停
     bool is_pressed_ = false;   // 鼠标按下
     bool is_trigger_ = false; // 是否触发按钮
+    bool is_freezed_ = false; // 是否冻结
 public:
     void handleEvents(SDL_Event &event) override;
     void update(float dt) override;
@@ -21,4 +22,5 @@ public:
     void checkHover();
     void changeSpriteState();
     bool getResetTrigger();
+    bool setFreezed(bool is_freezed) { is_freezed_ = is_freezed; return is_freezed_; }
 };

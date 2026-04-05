@@ -1,6 +1,6 @@
 #include "scene_title.h"
-#include "screen/ui_mouse.h"
 #include "scene_main.h"
+#include "screen/ui_mouse.h"
 #include <cmath>
 
 void SceneTitle::init()
@@ -12,21 +12,52 @@ void SceneTitle::init()
     subtitle_ = HUDText::createHUDTextAddChild(this, "最高分: " + std::to_string(game_.getHighScore()), game_.getSceneSize() / 2.0f + glm::vec2(0, 100), glm::vec2(200, 50), 32);
 
     button_start_ = HUDButton::createHUDButtonAddChild(this, game_.getSceneSize() / 2.0f + glm::vec2(-200, 200),
-                                                      "assets/UI/A_Start1.png", "assets/UI/A_Start2.png", "assets/UI/A_Start3.png", 2.0f);
+                                                       "assets/UI/A_Start1.png", "assets/UI/A_Start2.png", "assets/UI/A_Start3.png", 2.0f);
     button_credits_ = HUDButton::createHUDButtonAddChild(this, game_.getSceneSize() / 2.0f + glm::vec2(0, 200),
-                                                      "assets/UI/A_Credits1.png", "assets/UI/A_Credits2.png", "assets/UI/A_Credits3.png", 2.0f);
+                                                         "assets/UI/A_Credits1.png", "assets/UI/A_Credits2.png", "assets/UI/A_Credits3.png", 2.0f);
     button_exit_ = HUDButton::createHUDButtonAddChild(this, game_.getSceneSize() / 2.0f + glm::vec2(200, 200),
                                                       "assets/UI/A_Quit1.png", "assets/UI/A_Quit2.png", "assets/UI/A_Quit3.png", 2.0f);
+    text_credits_ = HUDText::createHUDTextAddChild(this, game_.loadTextFile("assets/credits.txt"), glm::vec2(game_.getSceneSize().x / 2.0f, game_.getSceneSize().y / 2.0f), glm::vec2(500, 500));
+    text_credits_->setBgSzieByText(50.0f);
+    text_credits_->setActive(false);
 
     ui_mouse_ = UI_Mouse::createUiMouseAddChild(this, "assets/UI/pointer_c_shaded.png", "assets/UI/pointer_c_shaded.png");
 }
 
+void SceneTitle::handleEvents(SDL_Event &event)
+{
+    if (text_credits_->getIsActive())
+    {
+        if (event.type == SDL_EVENT_MOUSE_BUTTON_UP)
+        {
+            text_credits_->setActive(false);
+        }
+        else
+        {
+            return;
+        }
+    }
+    Scene::handleEvents(event);
+}
+
 void SceneTitle::update(float dt)
 {
-    Scene::update(dt);
     color_timer_ += dt;
     updateColor();
-    updateButtonTriggers();
+    if (text_credits_->getIsActive())
+    {
+        button_start_->setFreezed(true);
+        button_credits_->setFreezed(true);
+        button_exit_->setFreezed(true);
+    }
+    else
+    {
+        updateButtonTriggers();
+        button_start_->setFreezed(false);
+        button_credits_->setFreezed(false);
+        button_exit_->setFreezed(false);
+    }
+    Scene::update(dt);
 }
 
 void SceneTitle::render()
@@ -56,5 +87,9 @@ void SceneTitle::updateButtonTriggers()
     if (button_start_->getResetTrigger())
     {
         game_.changeScene(new SceneMain());
+    }
+    if (button_credits_->getResetTrigger())
+    {
+        text_credits_->setActive(true);
     }
 }

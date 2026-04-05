@@ -14,9 +14,11 @@ protected:
     HUDButton* button_start_ = nullptr;
     HUDButton* button_credits_ = nullptr;
     HUDButton* button_exit_ = nullptr;
+    HUDText* text_credits_ = nullptr;
 
 public:
     void init() override;
+    void handleEvents(SDL_Event& event) override;
     void update(float dt) override;
     void render() override;
     void clean() override;
