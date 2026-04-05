@@ -1,10 +1,11 @@
 #include "hud_button.h"
 
-void HUDButton::handleEvents(SDL_Event &event)
+bool HUDButton::handleEvents(SDL_Event &event)
 {
+    // 如果按钮被冻结，则不处理任何事件
     if (is_freezed_)
-        return;
-    ObjectScreen::handleEvents(event);
+        return false;
+
     if (event.type == SDL_EVENT_MOUSE_BUTTON_DOWN)
     {
         if (event.button.button == SDL_BUTTON_LEFT)
@@ -13,6 +14,7 @@ void HUDButton::handleEvents(SDL_Event &event)
             {
                 is_pressed_ = true;
                 game_.playChunk("assets/sound/UI_button12.wav");
+                return true;
             }
         }
     }
@@ -28,9 +30,11 @@ void HUDButton::handleEvents(SDL_Event &event)
                     // 在按钮内松开鼠标，触发事件
                     is_trigger_ = true;
                 }
+                return true;
             }
         }
     }
+    return ObjectScreen::handleEvents(event);
 }
 
 void HUDButton::update(float dt)
@@ -40,6 +44,15 @@ void HUDButton::update(float dt)
     ObjectScreen::update(dt);
     checkHover();
     changeSpriteState();
+}
+
+void HUDButton::render()
+{
+#ifdef DEBUG_MODE
+    auto pos_render = getScreenPos() + normal_sprite_->getOffset();
+    game_.drawRect({pos_render.x, pos_render.y, normal_sprite_->getSize().x, normal_sprite_->getSize().y}, {1, 1, 1, 0.3f});
+#endif
+    ObjectScreen::render();
 }
 
 HUDButton *HUDButton::createHUDButtonAddChild(Object *parent, glm::vec2 screen_pos, const std::string &normal_file_path,
@@ -62,7 +75,7 @@ void HUDButton::checkHover()
 {
     // 鼠标位置是否在按钮内
     auto pos = getScreenPos() + normal_sprite_->getOffset();
-    bool new_is_hover_ = game_.checkPointInRect(game_.getMousePos(), pos, pos + normal_sprite_->getSize());
+    bool new_is_hover_ = game_.checkPointInRect(game_.getMouseScreenPos(), pos, pos + normal_sprite_->getSize());
     if (new_is_hover_ != is_hover_)
     {
         is_hover_ = new_is_hover_;

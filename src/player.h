@@ -15,11 +15,11 @@ public:
     Player() = default;
     ~Player() = default;
 
-    virtual void init();
-    virtual void handleEvents(SDL_Event &);
-    virtual void update(float);
-    virtual void render();
-    virtual void clean();
+    void init() override;
+    bool handleEvents(SDL_Event &) override;
+    void update(float) override;
+    void render() override;
+    void clean() override;
     void keyBoardControl();
     void changeState();
     void whenDead();

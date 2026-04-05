@@ -20,7 +20,7 @@ void Weapon::attack(Spell *spell)
 
 bool Weapon::canAttack()
 {
-    if (parent_ != nullptr && cooldown_timer_ >= cooldown_time_ && parent_->getStats()->canUseMana(cost_mana_)) {
+    if (parent_ && parent_->getStats()->getIsAlive() && cooldown_timer_ >= cooldown_time_ && parent_->getStats()->canUseMana(cost_mana_)) {
         return true;
     }
     return false;

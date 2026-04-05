@@ -14,8 +14,9 @@ protected:
     bool is_trigger_ = false; // 是否触发按钮
     bool is_freezed_ = false; // 是否冻结
 public:
-    void handleEvents(SDL_Event &event) override;
+    bool handleEvents(SDL_Event &event) override;
     void update(float dt) override;
+    void render() override;
 
     static HUDButton *createHUDButtonAddChild(Object* parent, glm::vec2 pos, const std::string &normal_file_path, 
                                             const std::string &hover_file_path, const std::string &pressed_file_path, float scale = 1.0f, Anchor anchor = Anchor::CENTER);

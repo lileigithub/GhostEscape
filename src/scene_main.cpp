@@ -1,6 +1,7 @@
 #include "scene_main.h"
 #include "Enemy.h"
 #include "player.h"
+#include "scene_title.h"
 #include "screen/ui_mouse.h"
 #include "spawner.h"
 #include "world/effect.h"
@@ -9,6 +10,14 @@ void SceneMain::init()
 {
     Scene::init();
     setWordSize(game_.getSceneSize() * 3.0f);
+
+    button_pause_ = HUDButton::createHUDButtonAddChild(this, game_.getSceneSize() - glm::vec2(250.0f, 30.0f),
+                                                       "assets/UI/A_Pause1.png", "assets/UI/A_Pause2.png", "assets/UI/A_Pause3.png");
+    button_restart_ = HUDButton::createHUDButtonAddChild(this, game_.getSceneSize() - glm::vec2(150.0f, 30.0f),
+                                                         "assets/UI/A_Restart1.png", "assets/UI/A_Restart2.png", "assets/UI/A_Restart3.png");
+    button_back_ = HUDButton::createHUDButtonAddChild(this, game_.getSceneSize() - glm::vec2(50.0f, 30.0f),
+                                                      "assets/UI/A_Back1.png", "assets/UI/A_Back2.png", "assets/UI/A_Back3.png");
+
     player_ = new Player();
     player_->init();
     spawner_ = new Spawner();
@@ -25,9 +34,9 @@ void SceneMain::init()
     game_.playMusic("assets/bgm/OhMyGhost.ogg", true);
 }
 
-void SceneMain::handleEvents(SDL_Event &event)
+bool SceneMain::handleEvents(SDL_Event &event)
 {
-    Scene::handleEvents(event);
+    return Scene::handleEvents(event);
 }
 
 void SceneMain::update(float dt)
@@ -36,6 +45,7 @@ void SceneMain::update(float dt)
     setCameraPos(player_->getPosition() - game_.getSceneSize() / 2.0f);
     Scene::update(dt);
     updateScoreText();
+    updateButtonTriggers();
 }
 
 void SceneMain::render()
@@ -60,5 +70,21 @@ void SceneMain::drawBackground()
 
 void SceneMain::updateScoreText()
 {
-   score_hud_text_->setText("Score: " + std::to_string(game_.getScore()));
+    score_hud_text_->setText("Score: " + std::to_string(game_.getScore()));
+}
+
+void SceneMain::updateButtonTriggers()
+{
+    if (button_pause_->getResetTrigger())
+    {
+        setIsPause(!getIsPause());
+    }
+    else if (button_restart_->getResetTrigger())
+    {
+        game_.changeScene(new SceneMain());
+    }
+    else if (button_back_->getResetTrigger())
+    {
+        game_.changeScene(new SceneTitle());
+    }
 }

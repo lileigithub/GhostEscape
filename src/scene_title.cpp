@@ -24,20 +24,21 @@ void SceneTitle::init()
     ui_mouse_ = UI_Mouse::createUiMouseAddChild(this, "assets/UI/pointer_c_shaded.png", "assets/UI/pointer_c_shaded.png");
 }
 
-void SceneTitle::handleEvents(SDL_Event &event)
+bool SceneTitle::handleEvents(SDL_Event &event)
 {
     if (text_credits_->getIsActive())
     {
         if (event.type == SDL_EVENT_MOUSE_BUTTON_UP)
         {
             text_credits_->setActive(false);
+            return true;
         }
         else
         {
-            return;
+            return false;
         }
     }
-    Scene::handleEvents(event);
+    return Scene::handleEvents(event);
 }
 
 void SceneTitle::update(float dt)
@@ -84,11 +85,11 @@ void SceneTitle::updateButtonTriggers()
     {
         game_.setIsRunning(false);
     }
-    if (button_start_->getResetTrigger())
+    else if (button_start_->getResetTrigger())
     {
         game_.changeScene(new SceneMain());
     }
-    if (button_credits_->getResetTrigger())
+    else if (button_credits_->getResetTrigger())
     {
         text_credits_->setActive(true);
     }

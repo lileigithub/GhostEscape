@@ -66,6 +66,7 @@ public:
     TTF_Text *createTTF_Text(const std::string &text, const std::string &fontPath, int fontSize);
 
     glm::vec2 getMousePos();
+    glm::vec2 getMouseScreenPos();
     int getScore() { return score_; }
     void setScore(int score) { score_ = score; if (score > high_score_) high_score_ = score; }
     int getHighScore() { return high_score_; }

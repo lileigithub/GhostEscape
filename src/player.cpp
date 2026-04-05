@@ -16,9 +16,9 @@ void Player::init()
     stats_ = Stats::createStatsAddChild(this);
     weapon_ = WeaponThunder::createWeaponThunderAddChild(this, 1.0f, 10);
 };
-void Player::handleEvents(SDL_Event &event)
+bool Player::handleEvents(SDL_Event &event)
 {
-    Actor::handleEvents(event);
+    return Actor::handleEvents(event);
     // TODO 鼠标右键点击移动到指定位置
 }
 void Player::update(float dt)

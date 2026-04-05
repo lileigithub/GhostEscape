@@ -16,28 +16,48 @@ glm::vec2 Scene::getMousePos()
     return ui_mouse_->getScreenPos() + cameraPos_;
 }
 
+glm::vec2 Scene::getMouseScreenPos()
+{
+    return ui_mouse_->getScreenPos();
+}
+
 void Scene::setCameraPos(glm::vec2 cameraPos)
 {
     cameraPos_ = glm::clamp(cameraPos, glm::vec2(-30.0f, -30.0f), wordSize_ - game_.getSceneSize() + 30.0f);
 }
 
-void Scene::handleEvents(SDL_Event &event)
+void Scene::setIsPause(bool is_pause)
 {
-    Object::handleEvents(event);
-    for (auto child : children_world_)
-    {
-        child->handleEvents(event);
-    }
+    is_pause_ = is_pause;
+    if (is_pause_)
+        game_.pauseChunk();
+    else
+        game_.resumeChunk();
+}
+
+bool Scene::handleEvents(SDL_Event &event)
+{
     for (auto child : children_screen_)
     {
-        child->handleEvents(event);
+        if (child->handleEvents(event))
+            return true;
     }
+
+    if (is_pause_)
+        return true;
+    for (auto child : children_world_)
+    {
+        if (child->handleEvents(event))
+            return true;
+    }
+    if (Object::handleEvents(event))
+        return true;
+    return false;
 }
 void Scene::update(float dt)
 {
-    Object::update(dt);
 
-    //安全add
+    // 安全add
     for (auto &child : sceen_need_add_children_)
     {
         switch (child->getObjectType())
@@ -56,7 +76,29 @@ void Scene::update(float dt)
     }
     sceen_need_add_children_.clear();
 
-    //安全移除
+    // 安全移除
+    if (!is_pause_)
+    {
+        Object::update(dt);
+        for (auto it = children_world_.begin(); it != children_world_.end();)
+        {
+            auto child = *it;
+            if (child->getNeedRemove())
+            {
+                it = children_world_.erase(it);
+                child->clean();
+                delete child;
+                child = nullptr;
+                continue;
+            }
+            else if (child->getIsActive())
+            {
+                child->update(dt);
+            }
+            it++;
+        }
+    }
+
     for (auto it = children_screen_.begin(); it != children_screen_.end();)
     {
         auto child = *it;
@@ -65,22 +107,7 @@ void Scene::update(float dt)
             it = children_screen_.erase(it);
             child->clean();
             delete child;
-            continue;
-        }
-        else if (child->getIsActive())
-        {
-            child->update(dt);
-        }
-        it++;
-    }
-    for (auto it = children_world_.begin(); it != children_world_.end();)
-    {
-        auto child = *it;
-        if (child->getNeedRemove())
-        {
-            it = children_world_.erase(it);
-            child->clean();
-            delete child;
+            child = nullptr;
             continue;
         }
         else if (child->getIsActive())

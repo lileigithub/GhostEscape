@@ -28,9 +28,9 @@ WeaponThunder *WeaponThunder::createWeaponThunderAddChild(Actor *parent, float c
     return weaponThunder;
 }
 
-void WeaponThunder::handleEvents(SDL_Event &event)
+bool WeaponThunder::handleEvents(SDL_Event &event)
 {
-    Weapon::handleEvents(event);
+    if (Weapon::handleEvents(event)) return true;
     if (event.type == SDL_EVENT_MOUSE_BUTTON_DOWN)
     {
         if (event.button.button == SDL_BUTTON_LEFT && canAttack())
@@ -40,6 +40,8 @@ void WeaponThunder::handleEvents(SDL_Event &event)
             auto pos = game_.getMousePos();
             auto spell = Spell::createSpellAddChild(nullptr, "assets/effect/Thunderstrike w blur.png", pos, demage_, 5, 9, 3.0f);
             attack(spell);
+            return true;
         }
     }
+    return false;
 }

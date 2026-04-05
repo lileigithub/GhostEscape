@@ -11,6 +11,7 @@ class UI_Mouse;
 class Scene : public Object
 {
     std::vector<Object *> sceen_need_add_children_;
+    bool is_pause_ = false;
 
 protected:
     glm::vec2 wordSize_ = glm::vec2();
@@ -21,7 +22,7 @@ protected:
     UI_Mouse *ui_mouse_ = nullptr;
 
 public:
-    void handleEvents(SDL_Event &) override;
+    bool handleEvents(SDL_Event &) override;
     void update(float) override;
     void render() override;
     void clean() override;
@@ -30,6 +31,8 @@ public:
     void removeChild(Object *child) override;
 
     void setCameraPos(glm::vec2 cameraPos);
+    void setIsPause(bool is_pause);
+    bool getIsPause() const { return is_pause_; }
     glm::vec2 getCameraPos() const { return cameraPos_; }
     glm::vec2 getWordSize() const { return wordSize_; }
     void setWordSize(glm::vec2 wordSize) { wordSize_ = wordSize; }
@@ -38,4 +41,5 @@ public:
     std::vector<ObjectWorld *> *getChildrenWorld() { return &children_world_; }
     std::vector<ObjectScreen *> *getChildrenScreen() { return &children_screen_; }
     glm::vec2 getMousePos();
+    glm::vec2 getMouseScreenPos();
 };
