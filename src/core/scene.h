@@ -11,7 +11,7 @@ class UI_Mouse;
 class Scene : public Object
 {
     std::vector<Object *> sceen_need_add_children_;
-    bool is_pause_ = false;
+    bool is_pause_ = false; // 除了ObjectScreen以外，其他Object是否需要暂停
 
 protected:
     glm::vec2 wordSize_ = glm::vec2();

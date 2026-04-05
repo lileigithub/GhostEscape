@@ -14,12 +14,13 @@ public:
 
     void start()
     {
-        timer_ = 0.0f;
-        is_time_out_ = false;
         is_active_ = true;
     }
     bool isStart() { return is_active_; }
-    void stop() { is_active_ = false; }
+    void stop()
+    {
+        is_active_ = false;
+    }
     bool getResetIsTimeOut();
     float getProgress() const { return timer_ / interval_; }
 };

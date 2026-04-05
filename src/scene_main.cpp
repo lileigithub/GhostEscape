@@ -36,7 +36,6 @@ void SceneMain::init()
     game_.playMusic("assets/bgm/OhMyGhost.ogg", true);
 
     end_timer_ = Timer::createTimerAddChild(this, 3.0f);
-    end_timer_->start();
 }
 
 bool SceneMain::handleEvents(SDL_Event &event)
@@ -52,7 +51,6 @@ void SceneMain::update(float dt)
     updateScoreText();
     checkEndGame();
     updateButtonTriggers();
-
 }
 
 void SceneMain::render()
@@ -98,9 +96,16 @@ void SceneMain::updateButtonTriggers()
 
 void SceneMain::checkEndGame()
 {
-    if (player_ && !player_->getIsActive() && end_timer_->getResetIsTimeOut()) {
+    if (player_ && !player_->getIsActive())
+    {
+        end_timer_->start();
+    }
+    if (end_timer_->getResetIsTimeOut())
+    {
+        // 这里暂停，当前场景会暂停，计时器会暂停。
+        setIsPause(true);
         end_timer_->stop();
-        //调整图标的位置和大小
+        // 调整图标的位置和大小
         button_restart_->setScreenPos(game_.getSceneSize() / 2.0f + glm::vec2(-200.0f, 0.0f));
         button_restart_->setScale(2.8f);
         button_back_->setScreenPos(game_.getSceneSize() / 2.0f + glm::vec2(200.0f, 0.0f));
