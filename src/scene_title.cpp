@@ -22,6 +22,8 @@ void SceneTitle::init()
     text_credits_->setActive(false);
 
     ui_mouse_ = UI_Mouse::createUiMouseAddChild(this, "assets/UI/pointer_c_shaded.png", "assets/UI/pointer_c_shaded.png");
+
+    game_.playMusic("assets/bgm/Spooky music.mp3", true);
 }
 
 bool SceneTitle::handleEvents(SDL_Event &event)
@@ -70,6 +72,7 @@ void SceneTitle::render()
 void SceneTitle::clean()
 {
     Scene::clean();
+    game_.stopMusic();
 }
 
 void SceneTitle::updateColor()

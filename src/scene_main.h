@@ -4,6 +4,7 @@
 #include "screen/hud_stats.h"
 #include "screen/hud_text.h"
 #include "screen/hud_button.h"
+#include "core/timer.h"
 class Player;
 class Spawner;
 
@@ -18,6 +19,8 @@ protected:
     HUDButton *button_restart_ = nullptr;
     HUDButton *button_back_ = nullptr;
 
+    Timer *end_timer_ = nullptr;
+
 public:
     void init() override;
     bool handleEvents(SDL_Event &event) override;
@@ -28,4 +31,5 @@ public:
     void drawBackground();
     void updateScoreText();
     void updateButtonTriggers();
+    void checkEndGame();
 };

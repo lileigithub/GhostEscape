@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "core/actor.h"
+#include "core/timer.h"
 class Effect;
 class SpriteAnim;
 class WeaponThunder;
@@ -10,6 +11,7 @@ class Player : public Actor
     SpriteAnim *idleAnim_;
     SpriteAnim *moveAnim_;
     WeaponThunder *weapon_;
+    Timer *blink_timer_ = nullptr;
 
 public:
     Player() = default;

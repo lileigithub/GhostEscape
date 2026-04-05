@@ -48,8 +48,8 @@ public:
     float getDemage() { return demage_; }
     void setParent(Actor *parent) { parent_ = parent; }
     Actor *getParent() { return parent_; }
-    void setInvicibleTimer(float timer) { invicible_timer_ = timer; }
-    float getInvicibleTimer() { return invicible_timer_; }
+    void setInvicibleTime(float time) { invicible_time_ = time; }
+    float getInvicibleTime() { return invicible_time_; }
     void setIsAlive(bool alive) { is_alive_ = alive; }
     bool getIsAlive() { return is_alive_; }
     bool getIsInvicible() { return is_invicible_; }

@@ -24,4 +24,5 @@ public:
     void changeSpriteState();
     bool getResetTrigger();
     bool setFreezed(bool is_freezed) { is_freezed_ = is_freezed; return is_freezed_; }
+    void setScale(float scale) { normal_sprite_->setScale(scale); hover_sprite_->setScale(scale); pressed_sprite_->setScale(scale); }
 };

@@ -1,10 +1,10 @@
 ﻿#include "player.h"
 #include "affiliates/sprite_anim.h"
+#include "affiliates/text_label.h"
 #include "core/scene.h"
 #include "core/stats.h"
-#include "world/effect.h"
 #include "weapon_thunder.h"
-#include "affiliates/text_label.h"
+#include "world/effect.h"
 void Player::init()
 {
     Actor::init();
@@ -14,7 +14,10 @@ void Player::init()
     moveAnim_ = Sprite::createSpriteAddChild<SpriteAnim>(this, "assets/sprite/ghost-move.png", 2.0f);
     collider_ = Collider::creatColliderAddChild(this, idleAnim_->getSize() / 2.0f);
     stats_ = Stats::createStatsAddChild(this);
+    stats_-> setInvicibleTime(2.5f);
     weapon_ = WeaponThunder::createWeaponThunderAddChild(this, 1.0f, 10);
+    blink_timer_ = Timer::createTimerAddChild(this, 0.4f);
+    blink_timer_->start();
 };
 bool Player::handleEvents(SDL_Event &event)
 {
@@ -31,6 +34,7 @@ void Player::update(float dt)
 }
 void Player::render()
 {
+    if (stats_->getIsInvicible() && blink_timer_->getProgress() <= 0.5f) return;
     Actor::render();
 #ifdef DEBUG_MODE
     game_.drawRect({getScreenPos().x, getScreenPos().y, 10.0f, 10.0f}, {255, 255, 255, 255});
@@ -106,7 +110,8 @@ void Player::changeState()
 
 void Player::whenDead()
 {
-    if (!stats_->getIsAlive()) {
+    if (!stats_->getIsAlive())
+    {
         setActive(false);
         game_.playChunk("assets/sound/female-scream-02-89290.mp3");
         auto deadEffect = Effect::createEffectAddChild(nullptr, "assets/effect/1764.png", this->getPosition(), 2.0f);
@@ -117,7 +122,8 @@ void Player::whenDead()
 
 void Player::takeDamage(float damage)
 {
-    if (!stats_ || !stats_->getIsAlive() || stats_->getIsInvicible()) return;
+    if (!stats_ || !stats_->getIsAlive() || stats_->getIsInvicible())
+        return;
     game_.playChunk("assets/sound/hit-flesh-02-266309.mp3");
     Actor::takeDamage(damage);
 }

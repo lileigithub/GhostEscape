@@ -74,6 +74,7 @@ set(SOURCES
     src/core/stats.cpp
     src/core/weapon.cpp
     src/core/object_affiliate.cpp
+    src/core/timer.cpp
     src/player.cpp
     src/scene_main.cpp
     src/scene_title.cpp

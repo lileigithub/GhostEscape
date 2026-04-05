@@ -10,13 +10,14 @@ void SceneMain::init()
 {
     Scene::init();
     setWordSize(game_.getSceneSize() * 3.0f);
+    game_.setScore(0);
 
-    button_pause_ = HUDButton::createHUDButtonAddChild(this, game_.getSceneSize() - glm::vec2(250.0f, 30.0f),
-                                                       "assets/UI/A_Pause1.png", "assets/UI/A_Pause2.png", "assets/UI/A_Pause3.png");
-    button_restart_ = HUDButton::createHUDButtonAddChild(this, game_.getSceneSize() - glm::vec2(150.0f, 30.0f),
-                                                         "assets/UI/A_Restart1.png", "assets/UI/A_Restart2.png", "assets/UI/A_Restart3.png");
+    button_pause_ = HUDButton::createHUDButtonAddChild(this, game_.getSceneSize() - glm::vec2(310.0f, 30.0f),
+                                                       "assets/UI/A_Pause1.png", "assets/UI/A_Pause2.png", "assets/UI/A_Pause3.png", 1.2f);
+    button_restart_ = HUDButton::createHUDButtonAddChild(this, game_.getSceneSize() - glm::vec2(180.0f, 30.0f),
+                                                         "assets/UI/A_Restart1.png", "assets/UI/A_Restart2.png", "assets/UI/A_Restart3.png", 1.2f);
     button_back_ = HUDButton::createHUDButtonAddChild(this, game_.getSceneSize() - glm::vec2(50.0f, 30.0f),
-                                                      "assets/UI/A_Back1.png", "assets/UI/A_Back2.png", "assets/UI/A_Back3.png");
+                                                      "assets/UI/A_Back1.png", "assets/UI/A_Back2.png", "assets/UI/A_Back3.png", 1.2f);
 
     player_ = new Player();
     player_->init();
@@ -31,7 +32,11 @@ void SceneMain::init()
     score_hud_text_ = HUDText::createHUDTextAddChild(this, "Score: 0", scorePos, glm::vec2(200.0f, 50.0f));
 
     ui_mouse_ = UI_Mouse::createUiMouseAddChild(this, "assets/UI/29.png", "assets/UI/30.png");
+
     game_.playMusic("assets/bgm/OhMyGhost.ogg", true);
+
+    end_timer_ = Timer::createTimerAddChild(this, 3.0f);
+    end_timer_->start();
 }
 
 bool SceneMain::handleEvents(SDL_Event &event)
@@ -45,7 +50,9 @@ void SceneMain::update(float dt)
     setCameraPos(player_->getPosition() - game_.getSceneSize() / 2.0f);
     Scene::update(dt);
     updateScoreText();
+    checkEndGame();
     updateButtonTriggers();
+
 }
 
 void SceneMain::render()
@@ -57,7 +64,7 @@ void SceneMain::render()
 void SceneMain::clean()
 {
     Scene::clean();
-    // 加入child里的，都由Scene清理了，这里不用管了
+    game_.stopMusic();
 }
 
 void SceneMain::drawBackground()
@@ -86,5 +93,18 @@ void SceneMain::updateButtonTriggers()
     else if (button_back_->getResetTrigger())
     {
         game_.changeScene(new SceneTitle());
+    }
+}
+
+void SceneMain::checkEndGame()
+{
+    if (player_ && !player_->getIsActive() && end_timer_->getResetIsTimeOut()) {
+        end_timer_->stop();
+        //调整图标的位置和大小
+        button_restart_->setScreenPos(game_.getSceneSize() / 2.0f + glm::vec2(-200.0f, 0.0f));
+        button_restart_->setScale(2.8f);
+        button_back_->setScreenPos(game_.getSceneSize() / 2.0f + glm::vec2(200.0f, 0.0f));
+        button_back_->setScale(2.8f);
+        button_pause_->setActive(false);
     }
 }
