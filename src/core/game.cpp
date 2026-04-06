@@ -228,6 +228,13 @@ void Game::drawBoundary(const glm::vec2 &top_left, const glm::vec2 &botton_right
     SDL_SetRenderDrawColorFloat(renderer_, 0, 0, 0, 1);
 }
 
+void Game::drawPoint(glm::vec2 point, SDL_FColor color)
+{
+    SDL_SetRenderDrawColorFloat(renderer_, color.r, color.g, color.b, color.a);
+    SDL_RenderPoint(renderer_, point.x, point.y);
+    SDL_SetRenderDrawColorFloat(renderer_, 0, 0, 0, 1);
+}
+
 bool Game::checkPointInRect(const glm::vec2 &point, const glm::vec2 &top_left, const glm::vec2 &bottom_right)
 {
     return point.x >= top_left.x && point.x <= bottom_right.x && point.y >= top_left.y && point.y <= bottom_right.y;

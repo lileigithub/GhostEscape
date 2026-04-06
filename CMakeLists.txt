@@ -81,6 +81,7 @@ set(SOURCES
     src/enemy.cpp
     src/spawner.cpp
     src/weapon_thunder.cpp
+    src/bg_stars.cpp
 )
 
 # Windows平台添加资源文件

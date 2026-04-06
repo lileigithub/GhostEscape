@@ -7,11 +7,14 @@
 #include "world/effect.h"
 #include "world/spell.h"
 #include <fstream>
+#include "bg_stars.h"
 void SceneMain::init()
 {
     Scene::init();
     setWordSize(game_.getSceneSize() * 3.0f);
     game_.setScore(0);
+
+    BgStars::createBgStarsAddChild(this, 1000, 0.8f, 0.6f, 0.3f);
 
     button_pause_ = HUDButton::createHUDButtonAddChild(this, game_.getSceneSize() - glm::vec2(310.0f, 30.0f),
                                                        "assets/UI/A_Pause1.png", "assets/UI/A_Pause2.png", "assets/UI/A_Pause3.png", 1.2f);
