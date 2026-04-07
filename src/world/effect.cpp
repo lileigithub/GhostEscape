@@ -7,6 +7,16 @@ void Effect::update(float dt)
     whenFinish();
 }
 
+void Effect::clean()
+{
+    ObjectWorld::clean();
+    if (nextObject_) {
+        nextObject_->clean();
+        delete nextObject_;
+        nextObject_ = nullptr;
+    }
+}
+
 Effect *Effect::createEffectAddChild(Object *parent, const std::string &path, glm::vec2 pos, float scale, Object *nextObject)
 {
     Effect *effect = new Effect();

@@ -114,8 +114,7 @@ void Player::whenDead()
     {
         setActive(false);
         game_.playChunk("assets/sound/female-scream-02-89290.mp3");
-        auto deadEffect = Effect::createEffectAddChild(nullptr, "assets/effect/1764.png", this->getPosition(), 2.0f);
-        game_.getCurrentScene()->addChild(deadEffect);
+        auto deadEffect = Effect::createEffectAddChild(game_.getCurrentScene(), "assets/effect/1764.png", this->getPosition(), 2.0f);
         deadEffect = nullptr;
     }
 }

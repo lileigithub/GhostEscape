@@ -10,6 +10,7 @@ protected:
 
 public:
     void update(float dt) override;
+    void clean() override;
     static Effect *createEffectAddChild(Object *parent, const std::string &path, glm::vec2 pos, float scale = 1.0f, Object *nextObject = nullptr);
     void setSpriteAnim(SpriteAnim *spriteAnim) { spriteAnim_ = spriteAnim; }
     SpriteAnim *getSpriteAnim() { return spriteAnim_; }
