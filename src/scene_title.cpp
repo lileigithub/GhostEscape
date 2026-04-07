@@ -23,7 +23,7 @@ void SceneTitle::init()
     text_credits_->setBgSzieByText(50.0f);
     text_credits_->setActive(false);
 
-    ui_mouse_ = UI_Mouse::createUiMouseAddChild(this, "assets/UI/pointer_c_shaded.png", "assets/UI/pointer_c_shaded.png");
+    ui_mouse_ = UI_Mouse::createUiMouseAddChild(this, "assets/UI/pointer_c_shaded.png", "assets/UI/pointer_c_shaded.png", 1.0f, Anchor::TOP_LEFT);
 
     game_.playMusic("assets/bgm/Spooky music.mp3", true);
 }
@@ -74,7 +74,6 @@ void SceneTitle::render()
 void SceneTitle::clean()
 {
     Scene::clean();
-    game_.stopMusic();
 }
 
 void SceneTitle::updateColor()

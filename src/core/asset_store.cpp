@@ -33,7 +33,7 @@ void AssetStore::loadChunk(const std::string &path)
     chunkMap_.emplace(path, chunk);
 }
 
-void AssetStore::loadFont(const std::string &path, int size)
+void AssetStore::loadFont(const std::string &path, float size)
 {
     TTF_Font *font = TTF_OpenFont(path.c_str(), size);
     if (font == nullptr)
@@ -92,7 +92,7 @@ Mix_Chunk *AssetStore::getChunk(const std::string &path)
     return it->second;
 }
 
-TTF_Font *AssetStore::getFont(const std::string &path, int size)
+TTF_Font *AssetStore::getFont(const std::string &path, float size)
 {
     auto it = fontMap_.find(path + std::to_string(size));
     if (it == fontMap_.end())

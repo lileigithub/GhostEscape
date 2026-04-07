@@ -5,7 +5,7 @@ class TextLabel : public ObjectAffiliate
 {
 protected:
     TTF_Text *ttf_text_ = nullptr;
-    int font_size_ = 16;
+    float font_size_ = 16;
     std::string font_path_;
 
 public:
@@ -13,12 +13,12 @@ public:
     void render() override;
     void clean() override;
 
-    static TextLabel *createTextLabelAddChild(ObjectScreen *parent, const std::string &text, const std::string &fontPath, int fontSize, Anchor anchor);
+    static TextLabel *createTextLabelAddChild(ObjectScreen *parent, const std::string &text, const std::string &fontPath, float fontSize, Anchor anchor);
 
     // getters and setters
-    void setFont(const std::string &fontPath, int fontSize);
-    void setFontSize(int fontSize);
-    int getFontSize() { return font_size_; }
+    void setFont(const std::string &fontPath, float fontSize);
+    void setFontSize(float fontSize);
+    float getFontSize() { return font_size_; }
     void setFontPath(const std::string &fontPath);
     std::string getFontPath() { return font_path_; }
 

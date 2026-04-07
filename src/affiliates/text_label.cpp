@@ -20,7 +20,7 @@ void TextLabel::clean()
     }
 }
 
-TextLabel *TextLabel::createTextLabelAddChild(ObjectScreen *parent, const std::string &text, const std::string &fontPath, int fontSize, Anchor anchor)
+TextLabel *TextLabel::createTextLabelAddChild(ObjectScreen *parent, const std::string &text, const std::string &fontPath, float fontSize, Anchor anchor)
 {
     TextLabel *textlabel = new TextLabel();
     textlabel->init();
@@ -36,7 +36,7 @@ TextLabel *TextLabel::createTextLabelAddChild(ObjectScreen *parent, const std::s
     return textlabel;
 }
 
-void TextLabel::setFont(const std::string &fontPath, int fontSize)
+void TextLabel::setFont(const std::string &fontPath, float fontSize)
 {
     font_size_ = fontSize;
     font_path_ = fontPath;
@@ -52,7 +52,7 @@ void TextLabel::setFont(const std::string &fontPath, int fontSize)
     updateSize();
 }
 
-void TextLabel::setFontSize(int fontSize)
+void TextLabel::setFontSize(float fontSize)
 {
     font_size_ = fontSize;
     auto font = game_.getAssetStore()->getFont(font_path_, fontSize);

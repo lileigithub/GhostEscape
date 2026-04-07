@@ -11,16 +11,6 @@ glm::vec2 Scene::screenPosToWorldPos(glm::vec2 screenPos)
     return screenPos + cameraPos_;
 }
 
-glm::vec2 Scene::getMousePos()
-{
-    return ui_mouse_->getScreenPos() + cameraPos_;
-}
-
-glm::vec2 Scene::getMouseScreenPos()
-{
-    return ui_mouse_->getScreenPos();
-}
-
 void Scene::setCameraPos(glm::vec2 cameraPos)
 {
     cameraPos_ = glm::clamp(cameraPos, glm::vec2(-30.0f, -30.0f), wordSize_ - game_.getSceneSize() + 30.0f);
@@ -138,6 +128,8 @@ void Scene::render()
 void Scene::clean()
 {
     Object::clean();
+    game_.stopMusic();
+    game_.stopChunk();
     for (auto child : children_world_)
     {
         child->clean();

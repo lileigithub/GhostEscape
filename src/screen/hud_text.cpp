@@ -1,6 +1,6 @@
 #include "hud_text.h"
 
-HUDText *HUDText::createHUDTextAddChild(Object *parent, const std::string &text, glm::vec2 pos, glm::vec2 size, int fontSize, const std::string &bgPath, const std::string &fontPath, Anchor anchor)
+HUDText *HUDText::createHUDTextAddChild(Object *parent, const std::string &text, glm::vec2 pos, glm::vec2 size, float fontSize, const std::string &bgPath, const std::string &fontPath, Anchor anchor)
 {
     HUDText *hudText = new HUDText();
     hudText->init();

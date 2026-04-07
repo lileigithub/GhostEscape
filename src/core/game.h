@@ -28,6 +28,9 @@ private:
     Uint64 frame_time_ns_ = 0; // 每帧的时间间隔, 单位为纳秒
     float dt_s_ = 0;          // 每帧的时间间隔, 单位为秒
     Uint64 last_time_ns_ = 0;
+    SDL_MouseButtonFlags mouseButtonFlags_ = 0;
+    glm::vec2 mouse_screen_pos_ = glm::vec2(0);
+
 
     int score_ = 0;
     int high_score_ = 0;
@@ -66,8 +69,8 @@ public:
     glm::vec2 getSceneSize() const { return screen_size_; }
     SDL_Renderer *getRenderer() const { return renderer_; }
     AssetStore *getAssetStore() const { return asset_store_; }
-    TTF_Text *createTTF_Text(const std::string &text, const std::string &fontPath, int fontSize);
-    
+    TTF_Text *createTTF_Text(const std::string &text, const std::string &fontPath, float fontSize);
+
     // getters and setters
     glm::vec2 getMousePos();
     glm::vec2 getMouseScreenPos();
@@ -93,6 +96,7 @@ public:
     bool checkPointInRect(const glm::vec2 &point, const glm::vec2 &top_left, const glm::vec2 &bottom_right);
     void changeScene(Scene *scene) { next_scene_ = scene; }
     std::string loadTextFile(const std::string &path);
+    void updateMouseScreenPos();
 
     // 音乐函数
     void playMusic(const std::string &music_path, int loop = true) {Mix_PlayMusic(asset_store_->getMusic(music_path), loop ? -1 : 0);};

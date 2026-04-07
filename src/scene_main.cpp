@@ -66,7 +66,6 @@ void SceneMain::render()
 void SceneMain::clean()
 {
     Scene::clean();
-    game_.stopMusic();
     saveFile();
 }
 

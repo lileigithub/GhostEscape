@@ -43,7 +43,10 @@ void Game::init()
         SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "SDL_CreateWindowAndRenderer Error: %s", SDL_GetError());
         return;
     }
+    //设置逻辑分辨率
     SDL_SetRenderLogicalPresentation(renderer_, static_cast<int>(screen_size_.x), static_cast<int>(screen_size_.y), SDL_LOGICAL_PRESENTATION_LETTERBOX);
+    //设置窗口比例固定不变
+    SDL_SetWindowAspectRatio(window_, screen_size_.x/screen_size_.y, screen_size_.x/screen_size_.y);
 
     ttf_engine_ = TTF_CreateRendererTextEngine(renderer_);
 
@@ -141,6 +144,7 @@ void Game::handleEvents()
 
 void Game::update(float)
 {
+    updateMouseScreenPos();
     current_scene_->update(dt_s_);
 }
 
@@ -152,19 +156,19 @@ void Game::render()
     SDL_RenderPresent(renderer_);
 }
 
-TTF_Text *Game::createTTF_Text(const std::string &text, const std::string &fontPath, int fontSize)
+TTF_Text *Game::createTTF_Text(const std::string &text, const std::string &fontPath, float fontSize)
 {
     return TTF_CreateText(ttf_engine_, asset_store_->getFont(fontPath, fontSize), text.c_str(), 0);
 }
 
 glm::vec2 Game::getMousePos()
 {
-    return current_scene_->getMousePos();
+    return mouse_screen_pos_ + current_scene_->getCameraPos();
 }
 
 glm::vec2 Game::getMouseScreenPos()
 {
-    return current_scene_->getMouseScreenPos();
+    return mouse_screen_pos_;
 }
 
 void Game::drawGrid(const glm::vec2 left_top_pos, const glm::vec2 right_bottom_pos, glm::vec2 cell_size, SDL_FColor color)
@@ -250,4 +254,13 @@ std::string Game::loadTextFile(const std::string &path)
         text += line + "\n";
     }
     return text;
+}
+
+void Game::updateMouseScreenPos()
+{
+    mouseButtonFlags_ = SDL_GetMouseState(&mouse_screen_pos_.x, &mouse_screen_pos_.y);
+    // 按窗口放大缩小的比例调整位置
+    int w, h;
+    SDL_GetWindowSize(window_, &w, &h);
+    mouse_screen_pos_ = mouse_screen_pos_ * getSceneSize() / glm::vec2(w, h);
 }

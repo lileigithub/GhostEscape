@@ -42,6 +42,4 @@ public:
     glm::vec2 screenPosToWorldPos(glm::vec2 screenPos);
     std::vector<ObjectWorld *> *getChildrenWorld() { return &children_world_; }
     std::vector<ObjectScreen *> *getChildrenScreen() { return &children_screen_; }
-    glm::vec2 getMousePos();
-    glm::vec2 getMouseScreenPos();
 };

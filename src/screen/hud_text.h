@@ -11,7 +11,7 @@ protected:
     glm::vec2 size_;
 
 public:
-    static HUDText *createHUDTextAddChild(Object *parent, const std::string &text, glm::vec2 pos, glm::vec2 size, int fontSize = 16,
+    static HUDText *createHUDTextAddChild(Object *parent, const std::string &text, glm::vec2 pos, glm::vec2 size, float fontSize = 16,
                                           const std::string &bgPath = "assets/UI/Textfield_01.png", const std::string &fontPath = "assets/font/VonwaonBitmap-16px.ttf",
                                           Anchor anchor = Anchor::CENTER);
 

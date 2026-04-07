@@ -33,5 +33,5 @@ void UI_Mouse::update(float dt)
     {
         timer_ = 0.0f;
     }
-    mouseButtonFlags_ = SDL_GetMouseState(&screen_pos_.x, &screen_pos_.y);
+    setScreenPos(game_.getMouseScreenPos());
 }
