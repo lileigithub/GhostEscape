@@ -12,56 +12,56 @@
 ```mermaid
 classDiagram
     %% 定义继承关系
+    main o-- Game
     Object <|-- Game
-    Game *-- Scene
     Object <|-- Scene
     Object o-- Game
+    Game o-- AssetStore
     
 
     Scene <|-- SceneMain
     Scene <|-- SceneTitle
-    Scene o-- UI_Mouse
-    SceneTitle o-- HUDText
-    SceneTitle o-- HUDButton
-    SceneMain o-- Player
-    SceneMain o-- HUDText
-    SceneMain o-- HUDButton
-    SceneMain o-- Spawner
-    SceneMain o-- HUDStats
 
     Object <|-- ObjectScreen
     ObjectScreen <|-- ObjectWorld
+    ObjectScreen <|-- HUDSkill
+    ObjectScreen <|-- HUDText
+    ObjectScreen <|-- UI_Mouse
+    ObjectScreen <|-- HUDButton
+    ObjectScreen <|-- HUDStats
+
     ObjectWorld <|-- Actor
     Actor <|-- Player
-    Player o-- SpriteAnim
-    Player o-- WeaponThunder
+    Actor <|-- Enemy
+    ObjectWorld <|-- Spell
+    ObjectWorld <|-- Effect
 
     Object <|-- ObjectAffiliate
-    ObjectAffiliate <|-- ObjectAffiliate
+    ObjectAffiliate <|-- Sprite
     Sprite <|-- SpriteAnim
-    ObjectAffiliate o-- ObjectScreen
+    ObjectAffiliate <|-- Collider
+    ObjectAffiliate <|-- TextLabel
+    ObjectAffiliate <|-- AffiliateBar
 
+    Object <|-- Stats
     Object <|-- Weapon
     Weapon <|-- WeaponThunder
-    Weapon o-- Actor
-    WeaponThunder o-- HUDSkill
-    WeaponThunder o-- Spell
-
-    ObjectWorld <|-- Spell
-    Spell o-- SpriteAnim
-
-    ObjectScreen <|-- HUDSkill
-    HUDSkill o-- Sprite
+    Object <|-- Spawner
+    Object <|-- BgStars
+    Object <|-- Timer
 
     %% 定义类成员 (可选)
     class Object{
-        #std::vector<Object *> need_add_children_
+        #std::vector<Object *> children_
         #Game &game_
         +virtual void init()
         +virtual bool handleEvents(SDL_Event &)
         +virtual void update(float)
         +virtual void render()
         +virtual void clean()
+    }
+    class main["main.cpp"]{
+        -Game
     }
     class Game["Game (单例)"]{
         #Scene *current_scene_
@@ -123,11 +123,15 @@ classDiagram
         #SpriteAnim
         #WeaponThunder
     }
-    class UI_Mouse{}
-    class HUDText{}
-    class HUDButton{}
-    class Spawner{}
-    class HUDStats{}
+    class Stats{
+        #float current_health_
+        +createAddChild()
+    }
+    class Collider{
+        #Type type_
+        #SDL_Texture *texture_
+        +createAddChild()
+    }
     class ObjectAffiliate{
         #glm::vec2 size_
         #float scale_
@@ -148,16 +152,56 @@ classDiagram
         #float frameTimer_
         #bool is_loop_
         +createAddChild()
-        }
-    class Weapon{
-        #Actor * parent_
-        #float cooldown_time_
-        #int cost_mana_
     }
-    class WeaponThunder{
-        #HUDSkill *hud_skill_
-        #float demage_
-        -Spell
+    class AffiliateBar{
+        #float percent_
+        #SDL_FColor
+        +createAddChild()
+    }
+    class Enemy{
+        #Player *target_
+        #State current_state_
+        #SpriteAnim
+    }
+
+    class UI_Mouse{
+        #Sprite
+        +createAddChild()
+    }
+    class HUDText{
+        #Sprite *sprite_bg_
+        #TextLabel *text_label_
+        #glm::vec2 size_;
+        +createAddChild()
+    }
+    class TextLabel{
+        #TTF_Text *ttf_text_
+        #float font_size_
+        #std::string font_path_
+        +createAddChild()
+    }
+    class HUDButton{
+        #Sprite
+        #bool is_hover_
+        #bool is_pressed_
+        #bool is_trigger_
+        +createAddChild()
+    }
+    class Spawner{
+        #int num_
+        #float timer_
+        #float interval_
+        -Effect
+        -Enemy
+    }
+    class Effect{
+        #SpriteAnim *spriteAnim_
+        #Object *nextObject_
+        +createAddChild()
+    }
+    class HUDStats{
+        #Sprite
+        #Actor
         +createAddChild()
     }
     class HUDSkill{
@@ -166,11 +210,35 @@ classDiagram
         +createAddChild()
     }
     class Spell{
-    #SpriteAnim *sprite_anim_
-    #float damage_
-    +createAddChild()
+        #SpriteAnim *sprite_anim_
+        #float damage_
+        +createAddChild()
     }
 
-    note for Object "note标注"
+    class Weapon{
+        #Actor * parent_
+        #float cooldown_time_
+        #int cost_mana_
+    }
+    class WeaponThunder{
+        #HUDSkill *hud_skill_
+        -float demage_
+        -Spell
+        +createAddChild()
+    }
+    class BgStars {
+        +createAddChild()
+    }
+    class AssetStore{
+        #imageMap_
+        #musicMap_
+        #chunkMap_
+        #fontMap_
+    }
+    class Timer{
+        +createAddChild()
+    }
+
+    note for Object "include def.h 存枚举类，宏等"
 
 ```

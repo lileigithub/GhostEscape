@@ -1,5 +1,6 @@
 #include "spell.h"
 #include "../core/scene.h"
+#include "../enemy.h"
 void Spell::update(float dt)
 {
     ObjectWorld::update(dt);
@@ -20,7 +21,7 @@ void Spell::attack()
             if (it->getCollider() && it->getCollider()->isColliding(this->getCollider()) 
             && (this->sprite_anim_->getCurrentFrame() >= damage_min_frame_ && this->sprite_anim_->getCurrentFrame() <= damage_max_frame_))
             {
-                it->takeDamage(damage_);
+                dynamic_cast<Enemy *>(it)->takeDamage(damage_);
             }
         }
     }

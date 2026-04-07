@@ -1,8 +1,8 @@
 #pragma once
-#include "object_world.h"
+#include "object.h"
 
 class Actor;
-class Stats : public ObjectWorld
+class Stats : public Object
 {
 
 protected:
@@ -22,7 +22,7 @@ public:
 
     void update(float dt) override;
 
-    void takeDamage(float demage) override;
+    void takeDamage(float demage);
 
     bool canUseMana(int manaCost) {
         return current_mana_ >= manaCost;

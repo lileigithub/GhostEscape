@@ -3,9 +3,11 @@
 #include "screen/hud_skill.h"
 class WeaponThunder : public Weapon
 {
-    protected:
-    HUDSkill *hud_skill_ = nullptr;
     float demage_ = 50.0f;
+
+protected:
+    HUDSkill *hud_skill_ = nullptr;
+
 public:
     void init() override;
     void update(float dt) override;
